@@ -1,70 +1,24 @@
-const clientId = "68293042baeb423bb233a3ba90f6e00f";  // Replace with your actual Client ID
-const clientSecret = "ede0c89af94a403ca7cd9bde5ffcf6e7";  // Replace with your actual Client Secret
+document.getElementById('searchForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const query = document.getElementById('searchInput').value;
 
-const audio = document.getElementById("audio");
-const img = document.querySelector("img");
-const playPauseButton = document.getElementById("pause-play");
-const seekBar = document.getElementById("seekBar");
-const totalTime = document.getElementById("totalTime");
-const currentTime = document.getElementById("currentTime");
+  const response = await fetch(`http://localhost:5000/search?query=${query}`);
+  const data = await response.json();
 
+  let resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = ''; // Clear previous results
 
-
-// Play/Pause Toggle
-playPauseButton.addEventListener("click", () => {
-    playPauseButton.classList.toggle("paused");
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+  data.data.forEach(track => {
+      console.log(track);
+      let songElement = document.createElement('div');
+      songElement.innerHTML = `
+          <p><strong>${track.title}</strong> by ${track.artist.name}</p>
+          <audio controls>
+              <source src="${track.preview}" type="audio/mpeg">
+              Your browser does not support the audio element.
+          </audio>
+          <a href="${track.link}" target="_blank">Listen on Deezer</a>
+      `;
+      resultsDiv.appendChild(songElement);
+  });
 });
-
-
-audio.addEventListener("timeupdate", () => {
-  seekBar.value = (audio.currentTime / audio.duration) * 100;
-  currentTime.innerText = Math.round(audio.currentTime/60) + ":" + Math.round(audio.currentTime)
-  totalTime.innerText = audio.totalTime
-});
-
-// Change Audio Position
-seekBar.addEventListener("input", () => {
-  audio.currentTime = (seekBar.value / 100) * audio.duration;
-});
-
-
-
-const myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-myHeaders.append("Accept", "application/json");
-myHeaders.append("Authorization", "Token 2cf82db3-4064-4235-8253-16994eb51773");
-
-const raw = JSON.stringify({
-  "track": "Credit Alert",
-  "artist": "Siraheem",
-  "type": "track",
-  "sources": [
-    "spotify"
-  ]
-});
-
-const requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow"
-};
-
-fetch("https://api.musicapi.com/public/search", requestOptions)
-  .then((response) => response.text())
-  .then((result) => {
-    const data = JSON.parse(result);
-    const musicInfo = data.tracks[0].data;
-    console.log(musicInfo.imageUrl);
-    img.src = musicInfo.imageUrl;
-    audio.src = musicInfo.previewUrl;
-    console.log(musicInfo);
-  })
-  .catch((error) => console.error(error));
-
-

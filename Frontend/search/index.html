@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <p id="intro">
+        Showing results for <span id="query" style="text-transform: uppercase; font-weight: bold;"></span>
+    </p>
+    <div id="results">
+        <div id="songs">
+            <div>
+                <h2>Songs</h2>
+                <button>See All</button>
+            </div>
+            <div id="songs-result">
+            </div>
+        </div>
+        <div id="artists">
+            <div>
+                <h2>Artists</h2>
+                <button>See All</button>
+            </div>
+            <div id="artists-result"></div>
+        </div>
+        <div id="albums">
+            <div>
+                <h2>Albums</h2>
+                <button>See All</button>
+            </div>
+            <div id="albums-result"></div>
+        </div>
+    </div>
+</body>
+<script src="./search.js"></script>
+</html>
