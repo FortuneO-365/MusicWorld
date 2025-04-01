@@ -1,0 +1,250 @@
+:root{
+    --background-color: #2e2e2e;
+    --color: #cd7f32;
+    --text-color: white;
+    --secondary-color: #FFD700;
+    --h5-size: 18px;
+    --text-size: 15px;
+    --major-spacing: 20px;
+    --minor-spacing: 10px;
+    --songImg-size: 50px;
+    --artistImg-size: 150px;
+    --albumImg-size: 180px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: gainsboro;
+    border-radius: 10px;
+}
+
+
+*{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    padding: var(--major-spacing);
+}
+
+button{
+    padding: var(--minor-spacing);
+    font-size: var(--text-size);
+    border: 1px solid gainsboro;
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover{
+    background-color: gainsboro;
+    color: var(--background-color);
+}
+
+p{
+    width: fit-content;
+}
+
+#intro{
+    font-size: var(--h5-size);
+}
+
+#results{
+    width: 100%;
+    padding-block: var(--minor-spacing);
+}
+
+#songs>div:first-child, 
+#artists>div:first-child, 
+#albums>div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--major-spacing);
+}
+
+#songs-result{
+    display: flex;
+    flex-direction: column;
+    gap: var(--minor-spacing);
+    margin-bottom: var(--major-spacing);
+}
+
+.list-item{
+    width: 100%;
+    margin: auto;
+    border-bottom: 1px solid var(--color);
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.list-item-majorDetails{
+    display: flex;
+    align-items: center;
+    gap: var(--minor-spacing);
+}
+
+.list-item-image{
+    width: var(--songImg-size);
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.list-item-image img{
+    width: 100%;
+    border-radius: 5px;
+}
+
+.list-item-details{
+    min-width: 150px;
+}
+
+.list-item-name{
+    text-transform: capitalize;
+    font-size: var(--h5-size);
+}
+
+.list-item-artist, .list-item-displayName>p{
+    font-size: var(--text-size);
+    color: gainsboro;
+}
+
+.list-item-artist:hover,.list-item-displayName>p:hover{
+    color: var(--color);
+}
+
+.list-item-displayName{
+    display: none;
+}
+
+.list-item-duration{
+    display: none;
+}
+
+#artists-result{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+    padding-bottom: var(--major-spacing);
+    margin-bottom: var(--major-spacing);
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+
+#artists-result::-webkit-scrollbar {
+    height: 8px;
+}
+
+#artists-result::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 10px;
+}
+
+#artists-result::-webkit-scrollbar-thumb {
+    background-color: gainsboro;
+    border-radius: 10px;
+}
+
+/* Custom Scrollbar Button */
+#artists-result::-webkit-scrollbar-button {
+    display: block;
+    visibility: hidden;
+}
+
+/* Up Arrow */
+ #artists-result::-webkit-scrollbar-button:single-button:decrement {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(6.123233995736766e-17,1,1,-6.123233995736766e-17,0,0)"><path fill="white" d="M12 8l-6 6h12z"></path></svg>');
+    background-position: center;
+    background-size: 100%;
+    visibility: visible;
+} 
+
+/* Down Arrow */
+#artists-result::-webkit-scrollbar-button:single-button:increment {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)"><path fill="white" d="M12 8l-6 6h12z"></path></svg>');
+    background-position: center;
+    background-size: 100%;
+    visibility: visible;
+}
+
+.artist-card{
+    min-width: var(--artistImg-size);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.artist-image{
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.artist-image>img{
+    width: 100%;
+}
+
+.artist-name{
+    margin-top: 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.artist-name>p{
+    text-align: center;
+}
+
+#albums-result{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    gap: var(--minor-spacing);
+}
+
+.album-card{
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.album-card-image{
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.album-card-image img{
+    width: 100%;
+}
+
+.album-card-details{
+    margin-top: var(--minor-spacing);
+}
+
+.album-card-name{
+    font-size: var(--h5-size);
+    text-transform: uppercase;
+}
+
+.album-card-artist{
+    font-size: var(--text-size);
+    color: gainsboro;
+}
