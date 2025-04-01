@@ -1,7 +1,10 @@
 :root {
-    --bg-gradient: linear-gradient(to bottom right, #4B0082, #191970);
+    --bg-gradient: linear-gradient(to bottom right, #2e2e2e, #000000);
     --nav-gradient: linear-gradient(to right, #1C1C1C, #191970);
-    --btn-gradient: linear-gradient(to right, #FFD700, #00FFFF);
+    --btn-gradient: linear-gradient(to right, var(--main-color), var(--sec-color));
+    --background: #2e2e2e;
+    --main-color: #ffd700;
+    --sec-color: #cd7f32;
     --text-color: #FAFAFA;
 }
 /* Preloader Styles */
@@ -9,7 +12,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background: var(--bg-gradient); /* Dark background */
+    background: var(--background); /* Dark background */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +36,7 @@
 .wave {
     width: 8px;
     height: 40px;
-    background: #FFD700;
+    background: var(--main-color);
     border-radius: 5px;
     animation: waveAnimation 1.5s infinite ease-in-out;
 }
@@ -60,6 +63,7 @@
     font-family: 'Poppins', sans-serif;
     letter-spacing: 1px;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -67,6 +71,7 @@
     color: var(--text-color);
     font-family:sans-serif;
 }
+
 body {
     background: var(--bg-gradient);
     background-attachment: fixed;
@@ -81,10 +86,14 @@ body {
     margin-top: -2%;
 }
 
+.menu-toggle svg{
+    font-size: 30px;
+}
+
 .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #FFD700;
+    color: var(--main-color);
     width: 20%;
 }
 
@@ -95,7 +104,7 @@ nav {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background: var(--nav-gradient);
+    background: var(--background);
     position: relative;
 }
 
@@ -107,7 +116,7 @@ nav {
 }
 
 .nav-links a {
-    color: #FFD700;
+    color: var(--main-color);
     text-decoration: none;
     font-size: 16px;
     padding: 10px 0;
@@ -123,7 +132,7 @@ nav {
     bottom: -2px;
     width: 100%;
     height: 2px;
-     background: var(--btn-gradient);
+    background: var(--sec-color);
     transform: scaleX(0);
     transition: transform 0.3s ease-in-out;
 }
@@ -146,10 +155,11 @@ nav {
     outline: none;
     padding: 5px;
     width: 200px;
+    color: var(--background);
 }
 
 .search-bar button {
-     background: var(--btn-gradient);
+     background: var(--main-color);
     border: none;
     padding: 5px 10px;
     cursor: pointer;
@@ -157,7 +167,7 @@ nav {
 }
 
 .login-btn {
-     background: var(--btn-gradient);
+     background: var(--main-color);
     padding: 10px 15px;
     border-radius: 5px;
     color: black;
@@ -166,9 +176,13 @@ nav {
 }
 
 .login-btn:hover {
-    background-color: #FFFFFF;
+    background-color: var(--sec-color);
     color: #0D1117;
 }
+
+/* =================================================================
+    STYLING FOR THE NAVIGATION
+================================================================*/
 
 .mega-menu {
     position: absolute;
@@ -207,11 +221,32 @@ nav {
     list-style: none;
 }
 
-.mega-column ul li {
+/* .mega-column ul li {
+    /* background-color: rgba(163, 24, 163, 0.473); 
+    /* border-radius: 5rem; 
+} */
+
+
+.mega-column ul li a{
+    width: 100%;
+    display: block;
+}
+
+.mega-column ul li a::after{
+    display: none;
+}
+
+.mega-column ul li{
     margin-bottom: 8px;
-    background-color: rgba(163, 24, 163, 0.473);
     padding: 1% 10%;
-    border-radius: 5rem;
+}
+
+.mega-column ul li:hover{
+    box-shadow: 1px 1px 4px rgb(116, 107, 105);
+}
+
+.mega-column ul li a:hover{
+    color: var(--main-color);
 }
 
 .mega-column ul li a {
@@ -221,9 +256,10 @@ nav {
     transition: 0.3s;
 }
 
-.mega-column ul li a:hover {
-    color: #00FF7F;
-}
+
+/* =================================================================
+    STYLING FOR THE FIRST SECTION
+================================================================*/
 
 .hero {
     display: flex;
@@ -260,7 +296,7 @@ nav {
 
 .hero h1 {
     font-size: 48px;
-    color: #FFD700;
+    color: var(--main-color);
 }
 
 .hero-content p {
@@ -282,32 +318,41 @@ nav {
     border-radius: 5px;
     font-weight: bold;
     margin: 10px;
+    margin-left: 0 ;
 }
 
-.hero-buttons a:hover {
-    background-color: #FFD700;
+/* .hero-buttons a:hover {
+    /* background-color: var(--main-color); 
     color: #0D1117;
-}
+} */
 
 .download {
-     background: var(--btn-gradient);
     color: #0D1117;
+    background: var(--main-color);
+    border: 2px solid var(--main-color);
+    transition: all 0.3s ease-in-out;
 }
 
 .download:hover {
-    background-color: #FFFFFF;
+    color: var(--main-color);
+    background-color: transparent;
 }
 
 .trial {
     background-color: transparent;
-    border: 2px solid #FFD700;
-    color: #00FF7F;
+    border: 2px solid var(--main-color);
+    color: var(--main-color);
+    transition: all 0.3s ease-in-out;
 }
 
 .trial:hover {
-     background: var(--btn-gradient);
+    background: var(--main-color);
     color: #0D1117;
 }
+
+/* =================================================================
+    STYLING FOR THE SECOND SECTION
+================================================================*/
 
 .unlimited-access {
     background-color: #FFFFFF;
@@ -356,20 +401,20 @@ nav {
 }
 
 .cta-btn {
-     background: var(--btn-gradient);
-    color: black;
+    background: #0a183d;
+    color: white;
     padding: 23px 20px;
     border: none;
     min-width: 195px;
     font-size: 1rem;
     font-weight: bold;
-    border-radius: 50px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .cta-btn:hover {
-    background-color: #D9045B;
+    border-radius: 50px;
 }
 
 .how-it-works {
@@ -594,7 +639,7 @@ h3 {
 }
 
 .footer-logo span {
-    color: #FFD700;
+    color: var(--main-color);
 }
 
 .footer-left p {
@@ -778,6 +823,11 @@ h3 {
         font-size: 25px;
         margin-left: auto;
         margin-top: -5%;
+        color: var(--main-color);
+    }
+
+    .menu-toggle svg {
+        width: 30px;
     }
     .logo {
         width: fit-content;
