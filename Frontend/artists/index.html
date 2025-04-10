@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./search.css">
+    <title>Music World</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="artists.css">
 </head>
 <body>
     <header>
@@ -134,81 +134,35 @@
         </nav>
     </header>
     <section>
-        <p id="intro">
-            Showing results for <span id="query" style="text-transform: uppercase; font-weight: bold;"></span>
-        </p>
-        <div id="results">
-            <div id="songs">
+        <div id="minor-details">
+            <div id="artist-img">
+                <img src="" alt="" id="song-image">
+            </div>
+            <b>Artist</b>
+            <h2 class="artist-name"></h2>
+            <div id="action-buttons">
                 <div>
-                    <h2>Songs</h2>
-                    <button id="song-button">See All</button>
-                </div>
-                <div id="songs-result">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+                        </svg>
+                    </span>
+                        Share
                 </div>
             </div>
-            <div id="artists">
-                <div id="artist-button">
-                    <h2>Artists</h2>
-                    <button>See All</button>
-                </div>
-                <div id="artists-result"></div>
-            </div>
-            <div id="albums">
-                <div>
-                    <h2>Albums</h2>
-                    <button id="album-button">See All</button>
-                </div>
-                <div id="albums-result"></div>
-            </div>
+        </div>
+        <div id="major-details">
+           <div id="description">
+
+           </div>
+           <div id="song-category">
+                <h3>Top Songs By <span class="artist-name"></span></h3>
+                <div id="songs-list"></div>
+           </div>
         </div>
     </section>
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-left">
-                <h2 class="footer-logo"><span>MUSIC</span>WORLD</h2>
-                <p>Copyright ©2025 All Rights Reserved
-                </p>
-                <div class="footer-social">
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook-square"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="footer-right">
-                <div class="footer-column">
-                    <h3>About Us</h3>
-                    <ul>
-                        <li><a href="#">Our Story</a></li>
-                        <li><a href="#">Sol Music Blog</a></li>
-                        <li><a href="#">History</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Products</h3>
-                    <ul>
-                        <li><a href="#">Music</a></li>
-                        <li><a href="#">Subscription</a></li>
-                        <li><a href="#">Custom Music</a></li>
-                        <li><a href="#">Footage</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Playlists</h3>
-                    <ul>
-                        <li><a href="#">Newsletter</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script src="artists.js"></script>
+    <script src="../main.js"></script>
+    <script src="../script.js"></script>
 </body>
-<script src="./search.js"></script>
-<script src="../script.js"></script>
-<script src="../main.js"></script>
-
 </html>

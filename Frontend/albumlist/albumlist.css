@@ -1,0 +1,83 @@
+:root{
+    --background-color: #2e2e2e;
+    --color: #cd7f32;
+    --text-color: white;
+    --secondary-color: #FFD700;
+    --h5-size: 18px;
+    --text-size: 15px;
+    --major-spacing: 20px;
+    --minor-spacing: 10px;
+    --songImg-size: 200px;
+}
+
+
+section{
+    background-color: var(--background-color);
+    padding: var(--major-spacing);
+}
+
+h2{
+    margin-bottom: var(--major-spacing);
+}
+
+#grid-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 10px;   
+}
+
+.album-grid{
+    padding: 10px;
+    box-shadow: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.album-grid:hover{
+    box-shadow: 0px 0px 5px gainsboro;
+}
+
+.album-img{
+    width: 100%;
+    min-width: 200px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.album-img img{
+    width: 100%;
+}
+
+.album-grid h3{
+    transition: color 0.3s ease;
+}
+
+.album-grid:hover h3{
+    color: var(--color);
+}
+
+.album-grid p{
+    color: gainsboro;
+}
+
+@media screen and (min-width: 768px){
+    #grid-container{
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px 15px;   
+    }
+}
+
+@media screen and (min-width: 1024px){
+    #grid-container{
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px 20px; 
+    }
+}
+
+
+@media screen and (min-width: 1280px){
+    #grid-container{
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px 20px; 
+    }
+}

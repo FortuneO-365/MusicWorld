@@ -1,0 +1,124 @@
+:root{
+    --background-color: #2e2e2e;
+    --color: #cd7f32;
+    --text-color: white;
+    --secondary-color: #FFD700;
+    --h5-size: 18px;
+    --text-size: 15px;
+    --major-spacing: 20px;
+    --minor-spacing: 10px;
+    --songImg-size: 200px;
+}
+
+
+section{
+    background-color: var(--background-color);
+    padding: var(--major-spacing);
+}
+
+
+.album-cover {
+    display: flex;
+    align-items: center; 
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#album-cover-image{
+    width: var(--songImg-size);
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid gainsboro;
+}
+
+.album-cover-details img {
+    width: 100%;
+}
+
+.album-cover-details > div {
+    display: flex;
+    flex-direction: column;
+   text-align: left;
+}
+
+.album-cover-details h2 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.album-cover-details p {
+    font-size: 1em;
+    color: #555;
+}
+
+
+.song-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #3a3a3a; /* Light background color for the table */
+}
+
+.song-table th, .song-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #555;
+    font-size: 16px;
+}
+.song-table th {
+    background-color: var(--color);
+    color: white;
+    font-weight: bold;
+}
+
+.song-table th:nth-child(1){
+    text-align: left;
+}
+
+.song-table th:nth-child(2){
+    text-align: center;
+}
+
+.song-table th:nth-child(3){
+    text-align: right;
+}
+
+.song-table td:nth-child(1){
+    text-align: left;
+}
+
+.song-table td:nth-child(2){
+    text-align: center;
+}
+
+.song-table td:nth-child(3){
+    text-align: right;
+}
+
+.song-table-body td{
+    cursor:pointer
+}
+
+.song-table-body tr {
+    background-color: #3a3a3a;
+}
+
+.song-table-body tr:hover{
+    background-color: #555; 
+}
+
+@media screen and (max-width: 768px) {
+    .album-cover {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .album-cover-image {
+        margin-bottom: 10px;
+    }
+
+    .album-cover-details > div {
+        text-align: center;
+    }
+}

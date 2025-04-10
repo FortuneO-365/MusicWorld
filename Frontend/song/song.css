@@ -1,0 +1,511 @@
+:root{
+    --background-color: #2e2e2e;
+    --color: #cd7f32;
+    --text-color: white;
+    --secondary-color: #FFD700;
+    --h5-size: 18px;
+    --text-size: 15px;
+    --major-spacing: 20px;
+    --minor-spacing: 10px;
+    --songImg-size: 200px;
+}
+
+section{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: var(--major-spacing);
+}
+
+section.isPlaying{
+    padding-bottom: 50px;
+}
+
+#minor-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--minor-spacing);
+    padding-block: 10px;
+}
+
+#song-img{
+    width: var(--songImg-size);
+    height: var(--songImg-size);
+    margin-block: var(--major-spacing);
+    box-shadow: 0 0 10px 0 rgba(92, 92, 92, 0.5);
+    overflow: hidden;
+}
+
+#song-img img{
+    width: 100%;
+    height: auto;
+}
+
+#minor-details h5{
+    font-size: var(--h5-size);
+    font-weight: 500;
+}
+
+#song-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--minor-spacing);
+    font-size: 13px;
+}
+
+#action-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--minor-spacing);
+}
+
+#action-buttons div{
+    appearance: none;
+    background-color: var(--color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+#action-buttons div span{
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#action-buttons div span svg{
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+#action-buttons div:hover{
+    transform: scale(1.05);
+}
+
+#action-buttons div:first-child{
+    border-radius: 100%;
+    padding: 5px;
+}
+
+#action-buttons div:last-child{
+    border-radius: 50px;
+    gap: 5px;
+    font-size: 17px;
+    padding: 5px 10px;
+}
+
+#action-buttons div span{
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 30px;
+}
+
+#major-details{
+
+}
+
+#song-description{
+    
+}
+
+#headers{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: var(--major-spacing);
+}
+
+#headers h4{
+    width: 50%;
+    text-align: center;
+    position: relative;
+}
+
+#headers h4::after{
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: gainsboro;
+    transition: all 0.3s ease;
+}
+
+#headers h4.active::after{
+    background-color: var(--color);
+    height: 4px;
+    border-radius: 10px 10px 0 0;
+}
+
+.items.active{
+    visibility: visible;
+    display: block;
+    margin-block: var(--major-spacing);
+}
+
+.items{
+    transition: all 0.3s ease;
+    visibility: hidden;
+    display: none;
+}
+
+#download-button a{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: var(--major-spacing);
+    text-decoration: none;
+}
+
+#download-button div{
+    font-size: 15px;
+    font-weight: 800;
+}
+
+#download-button svg{
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.audio-player.shown{
+    display: block;
+}
+
+.audio-player{
+    display: none;
+    background-color: black;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 5px 20px;
+}
+
+.audio-player-controls-small{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.audio-player-controls-small .left-side,
+.audio-player-controls-small .right-side{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.audio-player-image{
+    width: 40px;
+    aspect-ratio: 1/1;
+    box-shadow: 0 0 2px white;
+}
+
+.audio-player-main-details span{
+    display: block;
+}
+
+.audio-player-main-details span:first-child{
+    font-size: 16px;
+}
+
+.audio-player-main-details span:last-child{
+    font-size: 13px;
+}
+
+.audio-player-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px
+}
+
+.audio-player-buttons button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    border: none;
+}
+
+#pausePlay-button-small{
+    position: relative;
+}
+
+#pausePlay-button-small span{
+    position: absolute;
+}
+
+#pausePlay-button-small span svg{
+    width: 25px;
+    height: 25px;
+}
+
+#pausePlay-button-small span:first-child{
+    display: none;
+}
+
+#pausePlay-button-small span:last-child{
+    display: block;
+}
+
+#pausePlay-button-small.pause span:first-child{
+    display: block;
+}
+
+#pausePlay-button-small.pause span:last-child{
+    display: none;
+}
+
+.audio-player-buttons button span{
+    display: block;
+}
+
+.audio-player-buttons button svg{
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.audio-player-settings{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.audio-player-dropdown.hidden{
+    visibility: hidden;
+}
+
+.audio-player-dropdown{
+    transition: all 0.3s ease;
+    visibility: visible;
+    position: absolute;
+    top: -35px;
+    right: -20px;
+    background-color: black;
+    color: white;
+    max-width: 300px;
+    display: block;
+}
+
+.audio-player-content{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 40px;
+}
+
+.audio-player-content div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid gainsboro;
+}
+
+.audio-player-content div span{
+    display: block;
+}
+
+.audio-player-content div span svg{
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.audio-player-settings svg{
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.audio-player-controls-small .audio-player-progress-bar{
+    position: absolute;
+    top: -6px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+}
+
+.audio-player-controls-small .audio-player-progress-bar input[type="range"]{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none; 
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background: linear-gradient(to right, var(--color) 0%, var(--color) var(--value),gainsboro var(--value), gainsboro 100%);
+    height: 1px;
+    outline: none;
+}
+
+.audio-player-controls-small input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--color) 0%, var(--color) var(--value),gainsboro var(--value), gainsboro 100%);
+}
+
+.audio-player-controls-small input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--color) 0%, var(--color) var(--value), gainsboro var(--value), gainsboro 100%);
+}
+
+.audio-player-controls-small input[type="range"]::-ms-track {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--color) 0%, var(--color) var(--value), gainsboro var(--value), gainsboro 100%);
+}
+
+.audio-player-controls-small input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color);
+    cursor: default;
+    position: absolute; 
+    top: -5px;
+    left: var(--value);
+
+}  
+
+.audio-player-controls-large{
+    display: none;
+}
+
+@media screen and (min-width: 768px){
+    .audio-player-controls-small{
+        display: none;
+    }
+
+    .audio-player-controls-large{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #pausePlay-button-large{
+        position: relative;
+    }
+    
+    #pausePlay-button-large span{
+        position: absolute;
+    }
+    
+    #pausePlay-button-large span svg{
+        width: 25px;
+        height: 25px;
+    }
+    
+    #pausePlay-button-large span:first-child{
+        display: none;
+    }
+    
+    #pausePlay-button-large span:last-child{
+        display: block;
+    }
+    
+    #pausePlay-button-large.pause span:first-child{
+        display: block;
+    }
+    
+    #pausePlay-button-large.pause span:last-child{
+        display: none;
+    }
+
+    .audio-player-controls-large .audio-player-progress{
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .audio-player-controls-large .audio-player-details{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .audio-player-controls-large .audio-player-main-details{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .audio-player-controls-large .audio-player-progress-bar{
+        width: 100%;
+    }
+
+    .audio-player-controls-large .audio-player-progress-bar input[type='range']{
+        width: 100%;
+    }
+
+    .audio-player-controls-large .audio-player-progress-bar input[type="range"]{
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none; 
+        width: 100%;
+        background: linear-gradient(to right, var(--color) 0%, var(--color) var(--value),gainsboro var(--value), gainsboro 100%);
+        background-color: gainsboro;
+        height: 8px;
+        outline: none;
+    }
+    
+    .audio-player-controls-large input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, var(--color) 0%, var(--color) var(--value),gainsboro var(--value), gainsboro 100%);
+    }
+    
+    .audio-player-controls-large input[type="range"]::-moz-range-track {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, var(--color) 0%, var(--color) var(--value), gainsboro var(--value), gainsboro 100%);
+    }
+    
+    .audio-player-controls-large input[type="range"]::-ms-track {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, var(--color) 0%, var(--color) var(--value), gainsboro var(--value), gainsboro 100%);
+    }
+    
+    .audio-player-controls-large input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--color);
+        cursor: default;
+    }  
+    
+}

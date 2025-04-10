@@ -1,0 +1,130 @@
+:root{
+    --background-color: #2e2e2e;
+    --color: #cd7f32;
+    --error: #cd4932;
+    --gold: #cdca32;
+    --secondary-color: #FFD700;
+    --text-color: white;
+    --h5-size: 18px;
+    --text-size: 15px;
+    --major-spacing: 20px;
+    --minor-spacing: 10px;
+    --songImg-size: 200px;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+.signup-container {
+    background-color: #3a3a3a;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.signupForm{
+    width: 100%;
+}
+
+.signup-container h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--color);
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #555;
+    color: white;
+}
+
+.form-group input:focus {
+    outline: 2px solid var(--color);
+}
+
+#password-group .password-requirements{
+    display: none;
+}
+
+#password-group.active .password-requirements{
+    display: block;
+}
+
+#password-group.active .password-requirements li.valid{
+    color: var(--color);
+}
+
+#c-password-group .c-password-requirements{
+    display: none;
+    color: var(--error);
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+#c-password-group.active .c-password-requirements{
+    display: block;
+}
+
+button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--color);
+    color: #2e2e2e;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--gold);
+}
+
+.switch {
+    text-align: center;
+    margin-top: 1rem;
+    color: gainsboro;
+}
+
+.switch a {
+    color: var(--color);
+    text-decoration: none;
+}
+
+.switch a:hover {
+    text-decoration: underline;
+}
+
+.err-msg{
+    color: red;
+    font-size: var(--text-size);
+    margin-top: var(--minor-spacing);
+    margin-bottom: var(--minor-spacing);
+}

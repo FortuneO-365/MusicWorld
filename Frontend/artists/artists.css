@@ -1,0 +1,82 @@
+:root{
+    --background-color: #2e2e2e;
+    --color: #cd7f32;
+    --text-color: white;
+    --secondary-color: #FFD700;
+    --h5-size: 18px;
+    --text-size: 15px;
+    --major-spacing: 20px;
+    --minor-spacing: 10px;
+    --songImg-size: 200px;
+}
+
+section{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: var(--major-spacing);
+    min-height: 100dvh;
+}
+
+#minor-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--minor-spacing);
+    padding-block: 10px;
+}
+
+#artist-img{
+    width: var(--songImg-size);
+    height: var(--songImg-size);
+    border-radius: 50%;
+    margin-block: var(--major-spacing);
+    box-shadow: 0 0 10px 0 rgba(92, 92, 92, 0.5);
+    overflow: hidden;
+}
+
+#artist-img img{
+    width: 100%;
+    height: auto;
+}
+
+
+#action-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--minor-spacing);
+}
+
+#action-buttons div{
+    appearance: none;
+    background-color: var(--color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    gap: 5px;
+    font-size: 17px;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+#action-buttons div span{
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#action-buttons div span svg{
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+#action-buttons div:hover{
+    transform: scale(1.05);
+}

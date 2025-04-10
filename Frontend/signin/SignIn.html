@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Signup Page</title>
+  <link rel="stylesheet" href="SignIn.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Create Account</h2>
+        <form class="signupForm" id="signupForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group" id="password-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required />
+                <ul class="password-requirements">
+                    <li id="capital">Must contain at least one uppercase letter</li>
+                    <li id="number">Must contain at least one number</li>
+                    <li id="length">Must be at least 8 characters long</li>
+                </ul>
+            </div>
+            <div class="form-group" id="c-password-group">
+                <label for="c-password">Confirm Password</label>
+                <input type="password" id="c-password" name="c-password" required />
+                <span class="c-password-requirements">
+                    Passwords do not match
+                </span>
+            </div>
+            <div class="form-group err-msg">
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+            <div class="switch">
+                Already have an account? <a href="login.html">Log in</a>
+            </div>
+    </div>
+</body>
+<script src="registration.js"></script>
+</html>

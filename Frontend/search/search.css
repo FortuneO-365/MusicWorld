@@ -28,18 +28,24 @@
 
 
 *{
-    background-color: var(--background-color);
-    color: var(--text-color);
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+section{
+    background-color: var(--background-color);
+    color: var(--text-color);
     padding: var(--major-spacing);
 }
 
+section>p{
+    margin-bottom: 20px;
+}
+
 button{
+    background-color: var(--background-color);
+    color: var(--text-color);
     padding: var(--minor-spacing);
     font-size: var(--text-size);
     border: 1px solid gainsboro;
@@ -185,7 +191,7 @@ p{
 }
 
 .artist-card{
-    min-width: var(--artistImg-size);
+    max-width: var(--artistImg-size);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -220,10 +226,6 @@ p{
     gap: var(--minor-spacing);
 }
 
-.album-card{
-    grid-area: 1 / 1 / 2 / 2;
-}
-
 .album-card-image{
     width: 100%;
     aspect-ratio: 1/1;
@@ -247,4 +249,30 @@ p{
 .album-card-artist{
     font-size: var(--text-size);
     color: gainsboro;
+}
+
+@media screen and (min-width: 768px) {
+    /* section{
+        display: none;
+    } */
+
+    .list-item-displayName{
+        display: block;
+    }
+    
+    .list-item-duration{
+        display: block;
+    }
+
+    .list-item-artist{
+        display: none;
+    }
+
+    .album-card{
+        max-width: 300px;
+    }
+
+    #albums-result{
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
