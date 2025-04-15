@@ -10,7 +10,7 @@ async function fetchResults() {
     if (!query) return;
     document.getElementById('query').innerText = query;
     
-    const response = await fetch(`http://localhost:5000/search?query=${query}`);
+    const response = await fetch(`http://localhost:5000/api/search?query=${query}`);
     const data = await response.json();
 
     let songsResult = document.getElementById('songs-result');

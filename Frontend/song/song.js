@@ -4,7 +4,7 @@ const albumName = document.querySelectorAll('.album-name');
 const songTitle = document.querySelectorAll('.song-title');
 const lyrics = document.getElementById('lyrics');
 const description = document.getElementById('description');
-const downloadBtn = document.getElementById<HTMLAnchorElement>('download');
+const downloadBtn = document.getElementById('download');
 const audio = document.querySelector('audio');
 
 
@@ -43,7 +43,7 @@ function getQueryParam(param) {
 async function fetchSong(){
     console.log("Fetching")
     const songId = getQueryParam('id');
-    const response = await fetch(`http://localhost:5000/song?id=${songId}`);
+    const response = await fetch(`http://localhost:5000/api/song?id=${songId}`);
     const data = await response.json();
     const songInfo = data;
 
@@ -65,21 +65,26 @@ async function fetchSong(){
     e.forEach(element => {
         element.style.display = 'none';
     })
+    audio.src = songInfo.songUrl;
+    const songResponse = await fetch(songInfo.songUrl);
+    const songBlob = await songResponse.blob();
+    const songUrl = URL.createObjectURL(songBlob);
+
+    downloadBtn.href = songUrl;
+    downloadBtn.download = `${songInfo.name} preview`;
 }
 
-async function fetchDownloadLink() {
-    try {
-        const response = await fetch('http://localhost:5000/song/download');
-        console.log("hello world");
-        const data = await response.json();
-        audio.src = data.download_link;
-        console.log(data);
-        downloadBtn.href = data.download_link;
-        downloadBtn.download = data.data.title;
-    } catch (err) {
-        console.error("Failed to fetch download link:", err);
-    }
-}
+// async function fetchDownloadLink() {
+    //     try {
+        //         const response = await fetch('http://localhost:5000/song/download');
+        //         console.log("hello world");
+        //         const data = await response.json();
+//         console.log(data);
+//     } catch (err) {
+//         console.error("Failed to fetch download link:", err);
+//     }
+// }
+
 
 
 function formatTime(ms) {
@@ -180,9 +185,6 @@ audio.addEventListener('timeupdate', ()=>{
 
 document.addEventListener('DOMContentLoaded', ()=>{
     fetchSong(); 
-    setTimeout(()=>{
-        fetchDownloadLink();
-    },500)
 }) 
  
 

@@ -5,131 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MusicWorld</title>
     <link rel="stylesheet" href="albums.css">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../header.css">
 </head>
 <body>
     <header>
-        <nav>
-            <div class="mini-cont">
-                <a href="index.html">
-                    <div class="logo">
-                        MusicWorld
+        <nav id="navigation">
+            <div id="left">
+                <div id="logo">
+                    <a href="index.html"><h1>MusicWorld</h1></a>
+                </div>
+
+            </div>
+            <div id="right">
+                <div class="search">
+                    <div>
+                        <input type="text" placeholder="Search Songs, Albums or Artists" id="search-input">
+                        <button onclick="search()">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>                              
+                            </span>
+                        </button>
                     </div>
-                </a>
-                <div class="menu-toggle" onclick="toggleMenu()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
+                </div>
+                <div id="userAccount">
+                    <button id="loggedOut" onclick="signin()">Login</button>
+                    <div id="loggedIn">
+                        <div id="icon">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>                              
+                            </span>
+                        </div>
+                        <div id="name">
+                            <p id="user-name">User</p>
+                        </div>
+                        <div id="hover-button">
+                            <ul>
+                                <li>
+                                    <button onclick="removeUser()">Logout</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="toggle">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>  
+                    </span>
                 </div>
             </div>
-            <ul class="nav-links">
-                <li class="dropdown">
-                    <a href="">Categories</a>
-                    <div class="mega-menu">
-                        <div class="mega-column">
-                            <h3>Genres</h3>
-                            <ul>
-                                <li><a href="#">Jazz</a></li>
-                                <li><a href="#">Rock</a></li>
-                                <li><a href="#">Pop</a></li>
-                                <li><a href="#">Classical</a></li>
-                                <li><a href="#">Rap</a></li>
-                            </ul>
-                        </div>
-                        <div class="mega-column">
-                            <h3><a href="#">Artists</a></h3>
-                        </div>
-                        <div class="mega-column">
-                            <h3>Albums</h3>
-                            <ul>
-                                <li><a href="#">All Albums</a></li>
-                            </ul>
-                        </div>
+        </nav>
+        <div id="dropdown" class="inactive">
+            <ul class="menu">
+                <li class="menu-item">
+                    <div class="menu-item-header foldable">
+                        <h3>Categories</h3>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>                              
+                        </span>
+                    </div>
+                    <div class="menu-item-content">
+                        <ul class="menu mini">
+                            <li class="menu-item mini">
+                                <div class="menu-item-header mini foldable">
+                                    <h3 style="color: gainsboro;">Genre</h3>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                        </svg>                              
+                                    </span>
+                                </div>
+                                <div class="menu-item-content mini">
+                                    <ul>
+                                        <li><a href="genres/index.html?genre=Jazz">Jazz</a></li>
+                                        <li><a href="genres/index.html?genre=Pop">Pop</a></li>
+                                        <li><a href="genres/index.html?genre=Classical">Classical</a></li>
+                                        <li><a href="genres/index.html?genre=Rap">Rap</a></li>
+                                        <li><a href="genres/index.html?genre=Rock">Rock</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="menu-item mini">
+                                <a href="#">Albums</a>
+                            </li>
+                            <li class="menu-item mini">
+                                <a href="#">Artists</a>
+                            </li>
+                        </ul>
+
                     </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#">Releases</a>
-                    <div class="mega-menu">
-                        <div class="mega-column">
-                            <h3>New Releases</h3>
-                            <ul>
-                                <li><a href="#">2025 - 2021</a></li>
-                            </ul>
-                        </div>
-                        <div class="mega-column">
-                            <h3>Past Releases</h3>
-                            <ul>
-                                <li><a href="#">2020 - 2000</a></li>
-                                <li><a href="#">1900s</a></li>
-                            </ul>
-                        </div>
+                <li class="menu-item">
+                    <div class="menu-item-header foldable">
+                        <h3>Releases</h3>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>                              
+                        </span>
+                    </div>
+                    <div class="menu-item-content">
+                        <ul class="menu mini">
+                            <li class="menu-item mini">
+                                <a href="#">Latest Releases</a>
+                            </li>
+                            <li class="menu-item mini">
+                                <a href="#">Best of the year</a>
+                            </li>
+                            <li class="menu-item mini">
+                                <a href="#">Oldies but Goldies</a>
+                            </li>
+                        </ul>
+
                     </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#">Playlists</a>
-                    <div class="mega-menu">
-                        <div class="mega-column">
+                <li class="menu-item">
+                    <div class="menu-header">
+                        <a href="#">
                             <h3>Playlists</h3>
-                            <ul>
-                                <li><a href="#">Curated Playlists</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">User-Made Playlists</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Trending Now</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Mood-Based Playlists</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown">
-                    <a href="#">Top Charts</a>
-                    <div class="mega-menu">
-                        <div class="mega-column">
-                            <h3>Top Charts</h3>
-                            <ul>
-                                <li><a href="#">Billboard Top 100</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Trending Songs</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Most Streamed</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">All-Time Hits</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="dropdown">
-                    <a href="#">Collections</a>
-                    <div class="mega-menu">
-                        <div class="mega-column">
-                            <h3>Featured Collections</h3>
-                            <ul>
-                                <li><a href="#">Explore</a></li>
-                            </ul>
-                        </div>
+                        </a>
                     </div>
                 </li>
             </ul>
-            <div class="search-bar">
-                <input type="text" placeholder="Search songs, albums or artists" id="search-input">
-                <button onclick="search()">🔍</button>
+            <div class="search">
+                <div>
+                    <input type="text" placeholder="Search songs, albums or artists" id="search-input">
+                    <button onclick="search()">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>                              
+                        </span>
+                    </button>
+                </div>
             </div>
-            <a class="login-btn" onclick="signin()">Login</a>
-        </nav>
+        </div>
     </header>
     <section>
             <div class="album-cover">
                 <div id="album-cover-image">
                     <img src="" alt="${album.title}" id="album-img">
                 </div>
-                <div>
+                <div id="album-details">
                     <h2 id="album-name"></h2>
                     <p><strong>Artist:</strong><span id="artist-name"></span></p>
                     <p><strong>Release Date:</strong> <span id="release-date"></span></p>
@@ -144,27 +173,11 @@
                         <th>Duration</th>
                     </tr>
                 </thead>
-                <tbody class="song-table-body">
-                    <tr class="row">
-                        <td class="song-name">Last Last</td>
-                        <td class="all-artists">Burna Boy, Lojay</td>
-                        <td class="duration">2:30</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="song-name">On the low</td>
-                        <td class="all-artists">Burna Boy</td>
-                        <td class="duration">2:37</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="song-name">Last Last</td>
-                        <td class="all-artists">Burna Boy, Lojay</td>
-                        <td class="duration">2:30</td>
-                    </tr>
+                <tbody id="song-table-body">
                 </tbody>
             </table>
     </section>
 </body>
 <script src="albums.js"></script>
 <script src="../main.js"></script>
-<script src="../script.js"></script>
 </html>

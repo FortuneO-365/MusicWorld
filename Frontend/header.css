@@ -1,0 +1,395 @@
+:root {
+    --bg-gradient: linear-gradient(to bottom right, #2e2e2e, #000000);
+    --nav-gradient: linear-gradient(to right, #1C1C1C, #191970);
+    --btn-gradient: linear-gradient(to right, var(--main-color), var(--sec-color));
+    --background: #2e2e2e;
+    --main-color: #ffd700;
+    --sec-color: #cd7f32;
+    --text-color: #FAFAFA;
+}
+
+header{
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--sec-color);
+    background-color: var(--background)
+}
+
+header a{
+    color: inherit;
+    text-decoration: none;
+}
+
+header a:hover{
+    color: var(--sec-color);
+}
+
+header input{
+    background-color: #555;
+    color: var(--text-color);
+}
+
+#navigation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none
+}
+
+#navigation.open{
+    border-bottom: 1px solid var(--sec-color)
+}
+
+#right{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#logo{
+    min-width: fit-content;
+}
+
+#logo h1{
+    padding: 10px;
+    color: var(--sec-color);
+}
+
+#navigation #category-menu{
+    display: none;
+}
+
+.floating{
+    display: none;
+}
+
+#navigation .search{
+    display: none;
+}
+
+#navigation #userAccount{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: relative;
+}
+
+#navigation #userAccount button{
+    background-color: var(--sec-color);
+    border:none;
+    border-radius: 5px;
+    color: var(--background);
+    padding: 8px 15px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#navigation #userAccount.isloggedIn button{
+    display: none;
+}
+
+#navigation #userAccount #loggedIn{
+    display: none;
+}
+
+#navigation #userAccount.isloggedIn #loggedIn{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 7px;
+    border-radius: 5px;
+}
+
+#navigation #userAccount.isloggedIn #loggedIn:hover{
+    background-color: #3d3d3d;
+}
+
+#navigation #userAccount #loggedIn #name{
+    display: none;
+}
+
+#navigation #userAccount #loggedIn #hover-button{
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: var(--background);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#navigation #userAccount #loggedIn.clicked #hover-button{
+    display: block;
+}
+
+#navigation #userAccount #loggedIn #hover-button button{
+    display: block;
+    background-color: #3a3a3a;
+    color: gainsboro;
+}
+
+#navigation #userAccount #loggedIn #hover-button button:hover{
+    background-color: #555;
+}
+
+#navigation #toggle{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    aspect-ratio: 1/1;
+}
+
+#navigation #toggle span{
+    display: block;
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+}
+
+
+#navigation #toggle span:first-child{
+    opacity: 1;
+    transition: all .3s ease;
+    transform: rotate(0deg);
+}
+
+#navigation #toggle span:last-child{
+    opacity: 0;
+    transition: all .3s ease;
+    transform: rotate(90deg);
+}
+
+#navigation #toggle.active span:first-child{
+    opacity: 0;
+    transform: rotate(90deg);
+
+}
+
+#navigation #toggle.active span:last-child{
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+#dropdown{
+    padding: 10px 25px;
+    display: block;
+}
+
+#dropdown.inactive{
+    display: none;
+}
+
+.menu{
+    list-style: none;
+}
+
+.menu-item{
+    padding-bottom: 10px;
+}
+
+.menu-item-header, .menu-header{
+    display: flex;
+    justify-content: flex-start;
+    align-items:center;
+    gap: 5px;
+    padding-bottom: 10px;
+    width: fit-content;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-item-header:hover{
+    gap: 3px;
+}
+
+.menu-item-header h3,
+.menu-header h3{
+    font-size: 18px
+}
+
+.menu-item-header:hover h3, 
+.menu-header:hover h3{
+    color: var(--sec-color);
+}
+
+.menu-item-header span{
+    width: 15px;
+    height: 15px;
+}
+
+.menu-item .menu-item-header span svg{
+    width: 15px;
+    height: 15px;
+    transition: 0.3s ease;
+}
+
+.menu-item.selected>.menu-item-header span svg{
+    transform: rotate(90deg);
+}
+
+.menu-item>.menu-item-content{
+    display: none;
+    padding-left: 20px;
+}
+
+.menu-item.selected>.menu-item-content{
+    display: block;
+}
+
+.menu-item-content ul{
+    list-style: none;
+}
+
+.menu-item-content ul li{
+    padding-bottom: 7px;
+    color: gainsboro;
+}
+
+.menu-item-header.mini{
+    padding-bottom: 0;
+}
+
+.menu-item-header.mini h3{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.menu-item.selected.mini .menu-item-content.mini ul{
+    display: block;
+}
+
+.menu-item.mini .menu-item-content.mini ul{
+    display: none;
+}
+
+.menu-item-content.mini ul li{
+    font-size: 14px;
+}
+
+#dropdown .search{
+    width: 100%;
+}
+
+#dropdown .search div{
+    position: relative;
+    width: 100%;
+}
+
+#dropdown .search input{
+    width: 100%;
+    padding: 7px 10px;
+    outline: none;
+    border: none;
+}
+
+#dropdown .search button{
+    box-sizing: border-box;
+    position: absolute;
+    border: none;
+    padding: 5px;
+    background-color: var(--sec-color);
+    right: 0;
+    top: 0;
+    max-height: 29px;
+}
+
+#dropdown .search button span{
+    width: 19px;
+    height: 19px;
+}
+
+#dropdown .search button svg{
+    width: 19px;
+    height: 19px;
+}
+
+
+@media screen and (min-width: 768px) {
+
+
+    #navigation #right{
+        justify-content: space-between;
+        width: 80%;
+    }
+
+    #navigation .search{
+        display: block;
+        width: 80%;
+    }
+    
+    #navigation .search div{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    #navigation .search div input{
+        /* border-radius: 5px; */
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 15px;
+        border: none;
+        outline: none;
+    }
+
+    #navigation .search div button{
+        /* border-radius: 5px; */
+        position: absolute;
+        right: 0;
+        background-color: var(--sec-color);
+        border: none;
+        height: 37px;
+        width: 37px;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #navigation .search div button span{
+        width: 22px;
+        height: 22px;
+    }
+
+    #navigation .search div button svg{
+        width: 22px;
+        height: 22px;
+    }
+
+    #navigation #userAccount #loggedIn #name{
+        display: block;
+    }
+
+    #hover-button ul{
+        list-style: none;
+    }
+
+    #dropdown{
+        padding-top: 20px;
+    }
+
+    #dropdown .search {
+        display: none;
+    }
+
+    #dropdown .menu{
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    #dropdown .menu-item{
+        width: 30%;
+    }
+
+    #dropdown .menu-item .menu-item-content ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}

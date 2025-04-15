@@ -3,14 +3,28 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import axios from 'axios';
+import dotenv from 'dotenv'
 import * as cheerio from 'cheerio';
+import querystring from 'querystring';
+import { url } from 'inspector';
 
+
+dotenv.config();
 const app = express();
-const PORT = 5000;
 
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+
+const {
+    SPOTIFY_CLIENT_ID,
+    SPOTIFY_CLIENT_SECRET,
+    GeniusLyrics_AccessToken,
+    albumIds,
+    artistIds
+} = process.env;
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/musicworld', {
@@ -29,25 +43,13 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-const Spotify_RapidApiHost = 'spotify23.p.rapidapi.com';
-const Lyrics_RapidApiHost = 'genius-song-lyrics1.p.rapidapi.com';
-const Download_RapidApiHost = 'spotify-downloader9.p.rapidapi.com';
-
-const RapidApiKey = 'f66a300be6msh50efd67a3826646p1c9e5bjsnb7212b7751fc';
-
-const Spotify_ClientID = '68293042baeb423bb233a3ba90f6e00f'
-const Spotify_ClientSecret = 'ede0c89af94a403ca7cd9bde5ffcf6e7'
 let accessToken = '';
-const GeniusLyrics_AccessToken = 'L0vV1e9m3s0Xkk5wzmCRQFREKTfGGhlcBBCtNw5qc4g0mYfbr0SD-M29rQpaEClE';
-const LASTFM_API_KEY = 'a755e77380d55985fc2cc6cd1a092f79'
-
-
 
 let songUrl = '';
 
 async function getAccessToken() {
     const tokenUrl = 'https://accounts.spotify.com/api/token';
-    const authHeader = Buffer.from(`${Spotify_ClientID}:${Spotify_ClientSecret}`).toString('base64');
+    const authHeader = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64');
   
     try {
       const response = await axios.post(
@@ -111,25 +113,25 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/search', async (request, response) => {
+app.get('/api/search', async(request, response)=>{
     const { query } = request.query;
-    const options = {
+    const spotifyOptions = {
         method: 'GET',
         url: `https://api.spotify.com/v1/search?q=${query}&type=album%2Ctrack%2Cartist&limit=3`,
         headers: {
             'Authorization' : `Bearer ${accessToken}`,
         }
-    }
+    };
     try {
-        const res = await axios.request(options);
+        const res = await axios.request(spotifyOptions)
         response.json(res.data);
     } catch (error) {
         console.error(error);
-        response.status(500).json({ message: 'Error fetching data from Spotify API' });
+        res.status(400).json({ message: 'Error fetching data from Spotify API' });
     }
 })
 
-app.get('/song', async (request, response) => {
+app.get('/api/song', async(request, response)=>{
     const { id } = request.query;
 
     const spotifyOptions = {
@@ -140,180 +142,294 @@ app.get('/song', async (request, response) => {
         }
     };
 
-    try {
+    try{
         const spotifyRes = await axios.request(spotifyOptions);
         const track = spotifyRes.data;
         const songName = track.name;
         const artistName = track.artists[0]?.name || '';
-        const spotifyPreview = track.preview_url;
 
-        console.log(`[SPOTIFY] Song: ${songName} - ${artistName}`);
-
-        // Step 1: Search Genius
         const searchQuery = `${songName} ${artistName}`;
-        const geniusSearchRes = await axios.get('https://api.genius.com/search', {
-            params: { q: searchQuery },
-            headers: {
-                Authorization: `Bearer ${GeniusLyrics_AccessToken}`
-            }
-        });
-
-        const hit = geniusSearchRes.data.response.hits[0];
-        // console.log(hit);
-        if (!hit) throw new Error('No Genius results found');
-
-        const songPath = hit.result.path;
-        const geniusUrl = `https://genius.com${songPath}?text_format=html`;
-
-        const htmlRes = await axios.get(geniusUrl);
-        const $ = cheerio.load(htmlRes.data);
-
-        const lyricsHtml = $('[data-lyrics-container]').html() || '<p>Lyrics not found</p>';
-
-        const geniusSongOptions = {
+        const geniusOptions = {
             method: 'GET',
-            url: `https://api.genius.com/songs/${hit.result.id}?text_format=html`,
+            url: `https://api.genius.com/search?q=${searchQuery}`,
             headers: {
                 Authorization: `Bearer ${GeniusLyrics_AccessToken}`
             }
-        }
+        } 
         try{
-            console.log(hit.result.id)
+            const geniusRes = await axios.request(geniusOptions);
+            const hit = geniusRes.data.response.hits[0];
+            const songPath = hit.result.path;
+            const geniusUrl = `https://genius.com${songPath}?text_format=html`;
+
+            const geniusSongOptions = {
+                method: 'GET',
+                url: `https://api.genius.com/songs/${hit.result.id}?text_format=html`,
+                headers: {
+                    Authorization: `Bearer ${GeniusLyrics_AccessToken}`
+                }
+            };
+            
             const geniusSongNewRes = await axios.request(geniusSongOptions);
             const songDescription = geniusSongNewRes.data.response.song.description.html;
-            const descriptionHtml = songDescription || '<p>No description available</p>';
-            response.json({
-                ...track,
-                lyrics: lyricsHtml,
-                description: descriptionHtml,
-                source: "GENIUS"
-            });
-        }
-        catch (error) {
-            console.warn(`[ERROR]`, error.message);
-            response.json({
-                ...track,
-                lyrics: lyricsHtml,
-                description: '<p>No description available</p>',
-                source: "GENIUS_FALLBACK"
-            });
-        }
+            const descriptionHtml = songDescription || '<p>No description available</p>';     
+
+            const htmlRes = await axios.get(geniusUrl);
+            const $ = cheerio.load(htmlRes.data);
+
+            const lyricsHtml = $('[data-lyrics-container]').html() || '<p>Lyrics not found</p>';
+
+            try {
+                const deezerSearchOptions = {
+                    method : 'GET',
+                    url : `https://api.deezer.com/search?q=${searchQuery}`
+                }
+                const finalRes = await axios.request(deezerSearchOptions);
+                const songUrl = finalRes.data.data[0].preview;
+                response.json({
+                    ...track,
+                    lyrics: lyricsHtml,
+                    description: descriptionHtml,
+                    'songUrl': songUrl
+                })
 
 
-    } catch (error) {
-        console.warn(`[ERROR]`, error.message);
-        response.json({
-            lyrics: `<p>Lyrics not available.</p>`,
-            description: `<p>No description available</p>`,
-            source: "SPOTIFY_FALLBACK"
-        });
+            } catch (error) {
+                console.log(error);
+                response.json({
+                    source: "GENIUS FALLBACK",
+                    ...track,
+                    lyrics: lyricsHtml,
+                    description: descriptionHtml,
+                });
+            }
+
+        }catch(geniusError){
+            console.log(geniusError)
+            response.json({
+                'Spotify Fallback': track,
+            })
+        }
+    }catch(error){
+        console.log(error)
+        response.status(400).json(error.message)
     }
-});
+})
 
-
-app.get('/song/download', async (request, response) => {
+app.get('/api/trending', async(request, response)=>{
     const options = {
         method: 'GET',
-        url: 'https://spotify-downloader9.p.rapidapi.com/downloadSong',
-        params: {
-          songId: songUrl,
-        },
+        url : 'https://api.spotify.com/v1/playlists/5ABHKGoOzxkaa28ttQV9sE',
         headers: {
-          'x-rapidapi-key': RapidApiKey,
-          'x-rapidapi-host': Download_RapidApiHost,
+            'Authorization' : `Bearer ${accessToken}`,
         }
-    };
+    }
+    try {
+        const res = await axios.request(options)
+        response.json(res.data.tracks);
+    } catch (error) {
+        response.status(400).json(error);
+    }
+
+})
+
+app.get('/api/recommendation', async(request, response)=>{
+    const {genreId} = request.query;
+    const options = {
+        method : 'GET',
+        url: `https://api.deezer.com/chart/${genreId}/tracks`
+    }
+
     try {
         const res = await axios.request(options);
         response.json(res.data);
     } catch (error) {
-        console.log("Remaining requests:", response.header['x-ratelimit-requests-remaining'])
-        console.error(error);
+        response.status(400).json(error)
     }
-});
+})
 
-app.get('/artist', async (request, response) => {
+app.get('/api/recommendation/track', async(request, response)=>{
     const { id } = request.query;
+
+    const options = {
+        method : 'GET',
+        url: `https://api.deezer.com/track/${id}`
+    }
+
+    const result = await axios.request(options);
+    const trackName = result.data.title;
+    const artistName = result.data.artist.name;
+    const songUrl = result.data.preview;
+
+    const query = `${trackName} ${artistName}`;
+
+    const spotifySearchOptions = {
+        method: 'GET',
+        url: `https://api.spotify.com/v1/search?q=${query}&type=track&limit=1`,
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`,
+        }
+    }
+
+    try {
+        const res = await axios.request(spotifySearchOptions);
+        const spotifyId = res.data.tracks.items[0].id;
+        const spotifyOptions = {
+            method: 'GET',
+            url: `https://api.spotify.com/v1/tracks/${spotifyId}`,
+            headers: {
+                'Authorization' : `Bearer ${accessToken}`,
+            }
+        };
+    
+        try{
+            const spotifyRes = await axios.request(spotifyOptions);
+            const track = spotifyRes.data;
+
+            const geniusOptions = {
+                method: 'GET',
+                url: `https://api.genius.com/search?q=${query}`,
+                headers: {
+                    Authorization: `Bearer ${GeniusLyrics_AccessToken}`
+                }
+            } 
+            try{
+                const geniusRes = await axios.request(geniusOptions);
+                const hit = geniusRes.data.response.hits[0];
+                const songPath = hit.result.path;
+                const geniusUrl = `https://genius.com${songPath}?text_format=html`;
+    
+                const geniusSongOptions = {
+                    method: 'GET',
+                    url: `https://api.genius.com/songs/${hit.result.id}?text_format=html`,
+                    headers: {
+                        Authorization: `Bearer ${GeniusLyrics_AccessToken}`
+                    }
+                };
+                
+                const geniusSongNewRes = await axios.request(geniusSongOptions);
+                const songDescription = geniusSongNewRes.data.response.song.description.html;
+                const descriptionHtml = songDescription || '<p>No description available</p>';     
+    
+                const htmlRes = await axios.get(geniusUrl);
+                const $ = cheerio.load(htmlRes.data);
+    
+                const lyricsHtml = $('[data-lyrics-container]').html() || '<p>Lyrics not found</p>';
+
+                response.json({
+                    ...track,
+                    lyrics: lyricsHtml,
+                    description : descriptionHtml,
+                    'songUrl': songUrl
+                })
+    
+            }catch(geniusError){
+                console.log(geniusError)
+                response.json({
+                    'Spotify Fallback': track,
+                })
+            }
+        }catch(error){
+            console.log(error)
+            response.status(400).json(error.message)
+        }
+
+
+    } catch (error) {
+        
+    }
+
+    const spotifyOptions = {}
+})
+
+app.get('/api/artist', async(request, response)=>{
+    const {id} = request.query;
     const options = {
         method: 'GET',
         url: `https://api.spotify.com/v1/artists/${id}`,
         headers: {
-            'Authorization': `Bearer ${accessToken}`,
+            'Authorization' : `Bearer ${accessToken}`
         }
-    };
+    }
     try {
         const res = await axios.request(options);
-        response.json(res.data);
+        response.json(res.data)
     } catch (error) {
-        console.error(error);
+        response.status(400).json(error)
     }
-});
-
-app.get('/artist/details', async (request, response) => {
-    // const { id } = request.query;
-    // const options = {
-    //     method: 'GET',
-    //     url: 'https://spotify23.p.rapidapi.com/artist_overview/',
-    //     params: {
-    //         id: id,
-    //     },
-    //     headers: {
-    //         'X-RapidAPI-Key': RapidApiKey,
-    //         'X-RapidAPI-Host': Spotify_RapidApiHost
-    //     }
-    // };
-    // try {
-    //     const res = await axios.request(options);
-    //     response.json(res.data);
-    // } catch (error) {
-    //     console.error(error);
-    // }
 })
 
-app.get('/album', async (request, response) => {
-    const { id } = request.query;
+app.get('/api/artist/tracks', async(request, response)=>{
+    const {id} = request.query;
+    const options = {
+        method: 'GET',
+        url: `https://api.spotify.com/v1/artists/${id}/top-tracks`,
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
+        }
+    }
+    try {
+        const res = await axios.request(options);
+        response.json(res.data)
+    } catch (error) {
+        response.status(400).json(error)
+    }
+})
+
+app.get('/api/artists', async(request, response)=>{
+    const options = {
+        method: 'GET',
+        url: `https://api.spotify.com/v1/artists?ids=${artistIds}`,
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
+        }
+    }
+    try{
+        const res = await axios.request(options);
+        response.json(res.data)
+
+    }catch(error){
+        response.status(400).json(error)
+    }
+})
+
+app.get('/api/album', async(request, response)=>{
+    const {id} = request.query;
     const options = {
         method: 'GET',
         url: `https://api.spotify.com/v1/albums/${id}`,
         headers: {
-            'Authorization': `Bearer ${accessToken}`,
+            'Authorization' : `Bearer ${accessToken}`
         }
-    };
-    try {
+    }
+    try{
         const res = await axios.request(options);
-        response.json(res.data);
-    } catch (error) {
-        response.status(400).json(error);
-    }
-});
+        response.json(res.data)
+    }catch(error){
+        response.status(400).json(error)
+     }
+})
 
-
-app.get('/recommendations', async (req, res) => {
-    const {genre} = req.query;
-  
-    if (!genre) {
-      return res.status(400).json({ error: 'Genre is required as a query parameter' });
-    }
-  
-    try {
-      const response = await axios.get('https://ws.audioscrobbler.com/2.0/', {
-        params: {
-          method: 'tag.gettoptracks',
-          tag: genre,
-          api_key: LASTFM_API_KEY,
-          format: 'json'
+app.get('/api/albums', async(request, response)=>{
+    const options = {
+        method: 'GET',
+        url: `https://api.spotify.com/v1/albums?ids=${albumIds}`,
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
         }
-      });
-  
-      const tracks = response.data.tracks?.track || [];
-
-      res.json({ genre, tracks });
-    } catch (error) {
-      console.error('[LASTFM ERROR]', error.message);
-      res.status(500).json({ error: 'Failed to fetch recommendations from Last.fm' });
     }
-  });
+    try{
+        const res = await axios.request(options);
+        response.json(res.data)
+
+    }catch(error){
+        response.status(400).json(error)
+    }
+})
 
 
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+});
