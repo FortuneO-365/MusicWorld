@@ -90,7 +90,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     }
 
     try {
-        const response = await fetch("http://localhost:5000/register", {
+        const response = await fetch("https://musicworld-fo5v.onrender.com/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
