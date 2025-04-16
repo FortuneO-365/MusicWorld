@@ -43,7 +43,7 @@ section>p{
     margin-bottom: 20px;
 }
 
-button{
+section button{
     background-color: var(--background-color);
     color: var(--text-color);
     padding: var(--minor-spacing);

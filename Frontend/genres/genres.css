@@ -1,3 +1,69 @@
+:root{
+    --background-color: #2e2e2e;
+    --color: #cd7f32;
+    --text-color: white;
+    --secondary-color: #FFD700;
+    --h5-size: 18px;
+    --text-size: 15px;
+    --major-spacing: 20px;
+    --minor-spacing: 10px;
+    --songImg-size: 200px;
+}
+
+
 section{
     padding: 20px;
+    background-color: var(--background-color);
+}
+
+#top-part{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#top-part h1{
+    font-size: 24px;
+}
+
+#top-part h2{
+    font-size: 21px;
+}
+
+#top-part select{
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: #3a3a3a;
+    outline: none;
+    border-radius: 5px;
+}
+
+#top-part option:hover{
+    background-color: var(--color);
+}
+
+#main-part{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+.recommended-track{
+    height: fit-content;
+}
+
+.recommended-track-img-container{
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.recommended-track-img-container img{
+    width: 100%;
+}
+
+.recommended-track-details{
+    padding-block: 10px;
 }

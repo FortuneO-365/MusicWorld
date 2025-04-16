@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./search.css">
-    <link rel="stylesheet" href="../style.css">
+    <title>MusicWorld</title>
     <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="artistlist.css">
 </head>
 <body>
     <header>
@@ -99,13 +99,12 @@
                                 </div>
                             </li>
                             <li class="menu-item mini">
-                                <a href="../albumlist/index.html">Albums</a>
+                                <a href="albumlist/index.html">Albums</a>
                             </li>
                             <li class="menu-item mini">
                                 <a href="#">Artists</a>
                             </li>
                         </ul>
-
                     </div>
                 </li>
                 <li class="menu-item">
@@ -155,50 +154,11 @@
         </div>
     </header>
     <section>
-        <p id="intro">
-            Showing results for <span id="query" style="text-transform: uppercase; font-weight: bold;"></span>
-        </p>
-        <div id="results">
-            <div id="songs">
-                <div>
-                    <h2>Songs</h2>
-                </div>
-                <div id="songs-result">
-                </div>
-            </div>
-            <div id="artists">
-                <div id="artist-button">
-                    <h2>Artists</h2>
-                </div>
-                <div id="artists-result"></div>
-            </div>
-            <div id="albums">
-                <div>
-                    <h2>Albums</h2>
-                </div>
-                <div id="albums-result"></div>
-            </div>
+        <h2>Artists</h2>
+        <div id="grid-container">
         </div>
     </section>
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-left">
-                <div>
-                    <h2 class="footer-logo"><span>MUSIC</span>WORLD</h2>
-                    <p>Copyright ©2025 All Rights Reserved</p>
-                </div>
-                <div class="footer-social">
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook-square"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
-<script src="./search.js"></script>
 <script src="../main.js"></script>
-
+<script src="artistlist.js"></script>
 </html>

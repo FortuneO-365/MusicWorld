@@ -187,6 +187,82 @@ section.isPlaying{
     height: 24px;
 }
 
+#songs-list{
+    width: 100%;
+    overflow-x: scroll;
+    display: grid;
+    grid-template-columns: 80% 80% 80%;
+    gap: 10px;
+    padding: 20px 10px;
+}
+
+#songs-list::-webkit-scrollbar {
+    height: 8px;
+}
+
+#songs-list::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 10px;
+}
+
+#songs-list::-webkit-scrollbar-thumb {
+    background-color: gainsboro;
+    border-radius: 10px;
+}
+
+/* Custom Scrollbar Button */
+#songs-list::-webkit-scrollbar-button {
+    display: block;
+    visibility: hidden;
+}
+
+/* Up Arrow */
+ #songs-list::-webkit-scrollbar-button:single-button:decrement {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(6.123233995736766e-17,1,1,-6.123233995736766e-17,0,0)"><path fill="white" d="M12 8l-6 6h12z"></path></svg>');
+    background-position: center;
+    background-size: 100%;
+    visibility: visible;
+} 
+
+/* Down Arrow */
+#songs-list::-webkit-scrollbar-button:single-button:increment {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)"><path fill="white" d="M12 8l-6 6h12z"></path></svg>');
+    background-position: center;
+    background-size: 100%;
+    visibility: visible;
+}
+
+.song{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #555;
+    padding: 10px;
+    height: fit-content;
+    border-radius: 5px;
+    gap: 10px;
+}
+
+.song-image{
+    min-width: 50px;
+    max-width: 50px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.song-image img{
+    width: 100%;
+}
+
+.song-name{
+    font-size: 17px;
+}
+
+.song-duration{
+    font-size: 14px;
+}
+
 .audio-player.shown{
     display: block;
 }
@@ -402,6 +478,11 @@ section.isPlaying{
 }
 
 @media screen and (min-width: 768px){
+
+    #songs-list{
+        grid-template-columns: 60% 60% 60%;  
+    }
+
     .audio-player-controls-small{
         display: none;
     }
@@ -508,4 +589,18 @@ section.isPlaying{
         cursor: default;
     }  
     
+}
+
+
+@media screen and (min-width: 1024px){
+    #songs-list{
+        grid-template-columns: 45% 45% 45%;
+    }
+}
+
+
+@media screen and (min-width: 1280px){
+    #songs-list{
+        grid-template-columns: 40% 40% 40%;
+    }
 }

@@ -166,7 +166,8 @@ app.get('/api/song', async(request, response)=>{
                 method: 'GET',
                 url: `https://api.genius.com/songs/${hit.result.id}?text_format=html`,
                 headers: {
-                    Authorization: `Bearer ${GeniusLyrics_AccessToken}`
+                    Authorization: `Bearer ${GeniusLyrics_AccessToken}`,
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
                 }
             };
             
@@ -249,11 +250,11 @@ app.get('/api/recommendation', async(request, response)=>{
 })
 
 app.get('/api/recommendation/track', async(request, response)=>{
-    const { id } = request.query;
+    const { recommendedId } = request.query;
 
     const options = {
         method : 'GET',
-        url: `https://api.deezer.com/track/${id}`
+        url: `https://api.deezer.com/track/${recommendedId}`
     }
 
     const result = await axios.request(options);
@@ -303,7 +304,8 @@ app.get('/api/recommendation/track', async(request, response)=>{
                     method: 'GET',
                     url: `https://api.genius.com/songs/${hit.result.id}?text_format=html`,
                     headers: {
-                        Authorization: `Bearer ${GeniusLyrics_AccessToken}`
+                        Authorization: `Bearer ${GeniusLyrics_AccessToken}`,
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
                     }
                 };
                 

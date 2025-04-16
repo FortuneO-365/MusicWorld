@@ -10,7 +10,7 @@ async function fetchResults() {
     if (!query) return;
     document.getElementById('query').innerText = query;
     
-    const response = await fetch(`http://localhost:5000/api/search?query=${query}`);
+    const response = await fetch(`https://musicworld-fo5v.onrender.com/api/search?query=${query}`);
     const data = await response.json();
 
     let songsResult = document.getElementById('songs-result');
@@ -48,16 +48,18 @@ async function fetchResults() {
     
     data.albums.items.forEach(album => {
         console.log(album)
-        albumResult.innerHTML += `
-        '<div class="album-card" onclick='getAlbum("${album.id}")'>
-        <div class="album-card-image">
-        <img src='${album.images[0].url}'>
-        </div> 
-        <div class="album-card-details">
-        <p class="album-card-name">${album.name}</p>
-        <p class="album-card-artist">${album.artists[0].name}</p>
-        </div>
-        </div>`;
+        if(album.album_type === 'album'){
+            albumResult.innerHTML += `
+            '<div class="album-card" onclick='getAlbum("${album.id}")'>
+            <div class="album-card-image">
+            <img src='${album.images[0].url}'>
+            </div> 
+            <div class="album-card-details">
+            <p class="album-card-name">${album.name}</p>
+            <p class="album-card-artist">${album.artists[0].name}</p>
+            </div>
+            </div>`;
+        }
     })
     
     data.artists.items.forEach(artist => {
@@ -101,3 +103,4 @@ function getArtist(id){
 function getAlbum(id){
     window.location.href = `../albums/index.html?id=${id}`;  // Change this to the actual song page URL
 }
+

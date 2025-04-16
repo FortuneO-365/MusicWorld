@@ -43,47 +43,95 @@ function getQueryParam(param) {
 async function fetchSong(){
     console.log("Fetching")
     const songId = getQueryParam('id');
-    const response = await fetch(`http://localhost:5000/api/song?id=${songId}`);
-    const data = await response.json();
-    const songInfo = data;
-
-    img.src = songInfo.album.images[0].url;
-    document.getElementById('song-duration').innerText = formatTime(songInfo.duration_ms);
-    document.getElementById('release-date').innerText = songInfo.album.release_date;
-    artistName.forEach(artist => {
-        artist.innerText = songInfo.artists[0].name;
-    })
-    albumName.forEach(album => {
-        album.innerText = songInfo.album.name;
-    })
-    songTitle.forEach(title => {
-        title.innerText = songInfo.name;
-    })
-    lyrics.innerHTML = songInfo.lyrics || "Lyrics not found";
-    description.innerHTML = songInfo.description || "Description not found";
-    const e = Array.from(document.getElementsByClassName('LyricsHeader__Container-sc-3eaf69e8-1'));
-    e.forEach(element => {
-        element.style.display = 'none';
-    })
-    audio.src = songInfo.songUrl;
-    const songResponse = await fetch(songInfo.songUrl);
-    const songBlob = await songResponse.blob();
-    const songUrl = URL.createObjectURL(songBlob);
-
-    downloadBtn.href = songUrl;
-    downloadBtn.download = `${songInfo.name} preview`;
+    if (songId !== '' && songId !== null ){
+        const response = await fetch(`https://musicworld-fo5v.onrender.com/api/song?id=${songId}`);
+        const data = await response.json();
+        const songInfo = data;
+    
+        img.src = songInfo.album.images[0].url;
+        document.getElementById('song-duration').innerText = formatTime(songInfo.duration_ms);
+        document.getElementById('release-date').innerText = songInfo.album.release_date;
+        artistName.forEach(artist => {
+            artist.innerText = songInfo.artists[0].name;
+        })
+        albumName.forEach(album => {
+            album.innerText = songInfo.album.name;
+        })
+        songTitle.forEach(title => {
+            title.innerText = songInfo.name;
+        })
+        lyrics.innerHTML = songInfo.lyrics || "Lyrics not found";
+        description.innerHTML = songInfo.description || "Description not found";
+        const e = Array.from(document.getElementsByClassName('LyricsHeader__Container-sc-3eaf69e8-1'));
+        e.forEach(element => {
+            element.style.display = 'none';
+        })
+        audio.src = songInfo.songUrl;
+        const songResponse = await fetch(songInfo.songUrl);
+        const songBlob = await songResponse.blob();
+        const songUrl = URL.createObjectURL(songBlob);
+    
+        downloadBtn.href = songUrl;
+        downloadBtn.download = `${songInfo.name} preview`;
+        fetchArtistsTrack(songInfo.id)
+    }else{
+        songId = getQueryParam('recommendedId');
+        if (songId !== '' && songId !== null ){
+            const response = await fetch(`https://musicworld-fo5v.onrender.com/api/recommendation/track?recommendedId=${songId}`);
+        const data = await response.json();
+        const songInfo = data;
+    
+        img.src = songInfo.album.images[0].url;
+        document.getElementById('song-duration').innerText = formatTime(songInfo.duration_ms);
+        document.getElementById('release-date').innerText = songInfo.album.release_date;
+        artistName.forEach(artist => {
+            artist.innerText = songInfo.artists[0].name;
+        })
+        albumName.forEach(album => {
+            album.innerText = songInfo.album.name;
+        })
+        songTitle.forEach(title => {
+            title.innerText = songInfo.name;
+        })
+        lyrics.innerHTML = songInfo.lyrics || "Lyrics not found";
+        description.innerHTML = songInfo.description || "Description not found";
+        const e = Array.from(document.getElementsByClassName('LyricsHeader__Container-sc-3eaf69e8-1'));
+        e.forEach(element => {
+            element.style.display = 'none';
+        })
+        audio.src = songInfo.songUrl;
+        const songResponse = await fetch(songInfo.songUrl);
+        const songBlob = await songResponse.blob();
+        const songUrl = URL.createObjectURL(songBlob);
+    
+        downloadBtn.href = songUrl;
+        downloadBtn.download = `${songInfo.name} preview`;
+        fetchArtistsTrack(songInfo.id)
+        }else{
+            window.location.href='../404.html'
+        }
+    }
 }
 
-// async function fetchDownloadLink() {
-    //     try {
-        //         const response = await fetch('http://localhost:5000/song/download');
-        //         console.log("hello world");
-        //         const data = await response.json();
-//         console.log(data);
-//     } catch (err) {
-//         console.error("Failed to fetch download link:", err);
-//     }
-// }
+async function fetchArtistsTrack(id) {
+    const response = await fetch(`https://musicworld-fo5v.onrender.com/api/artist/tracks?id=${id}`);
+    const data = await response.json();
+    console.log(data);
+    const tracks = data.tracks;
+    tracks.forEach(track => {
+        document.getElementById('song-array').innerHTML = `
+            <div class="song" onclick='getSong("${track.id}")'>
+                <div class="song-image">
+                    <img src=${track.album.images[0].url} alt="">
+                </div>
+                <div class="song-details">
+                    <p class="song-name">${track.name}</p>
+                </div>
+                <div class="song-duration">${formatTime(track.duration_ms)}</div>
+            </div>
+        `
+    })
+}
 
 
 
