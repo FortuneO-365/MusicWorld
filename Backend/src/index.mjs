@@ -27,7 +27,7 @@ const {
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/musicworld', {
+mongoose.connect(process.env.MongoDB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
