@@ -198,7 +198,7 @@ app.get('/api/song', async(request, response)=>{
             } catch (error) {
                 console.log(error);
                 response.json({
-                    source: "GENIUS FALLBACK",
+                    source: "GENIUS",
                     ...track,
                     lyrics: lyricsHtml,
                     description: descriptionHtml,
@@ -208,7 +208,7 @@ app.get('/api/song', async(request, response)=>{
         }catch(geniusError){
             console.log(geniusError)
             response.json({
-                'Spotify Fallback': track,
+                'SPOTIFY': track,
             })
         }
     }catch(error){
@@ -328,11 +328,11 @@ app.get('/api/recommendation/track', async(request, response)=>{
             }catch(geniusError){
                 console.log(geniusError)
                 response.json({
-                    'Spotify Fallback': track,
+                    'SPOTIFY': track,
                 })
             }
         }catch(error){
-            console.log(error)
+            // console.log(error)
             response.status(400).json(error.message)
         }
 
