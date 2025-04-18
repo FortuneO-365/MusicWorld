@@ -1,10 +1,11 @@
 // Importing modules
-import express from 'express';
+import express, { response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import axios from 'axios';
 import dotenv from 'dotenv'
 import * as cheerio from 'cheerio';
+import { request } from 'http';
 
 
 dotenv.config();
@@ -252,6 +253,90 @@ app.get('/api/trending', async(request, response)=>{
         response.status(400).json(error);
     }
 
+})
+
+app.get('/api/liked', async(request, response)=>{
+    const options = {
+        method: 'GET',
+        url : 'https://api.spotify.com/v1/playlists/1wGjJFYGu12FbrPtiTkSi9',
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`,
+        }
+    }
+    try {
+        const res = await axios.request(options)
+        response.json(res.data.tracks);
+    } catch (error) {
+        response.status(400).json(error);
+    }
+
+})
+
+app.get('/api/fun', async(request, response)=>{
+    const options = {
+        method: 'GET',
+        url : 'https://api.spotify.com/v1/playlists/7cPOvZQuLkNzExJBRKpstz',
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`,
+        }
+    }
+    try {
+        const res = await axios.request(options)
+        response.json(res.data.tracks);
+    } catch (error) {
+        response.status(400).json(error);
+    }
+
+})
+
+app.get('/api/covers', async(request, response)=>{
+    const options = {
+        method: 'GET',
+        url : 'https://api.spotify.com/v1/playlists/0BScoXPFXGiiYKQLYlr0ff',
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`,
+        }
+    }
+    try {
+        const res = await axios.request(options)
+        response.json(res.data.tracks);
+    } catch (error) {
+        response.status(400).json(error);
+    }
+})
+
+app.get('/api/throwback', async(request, response)=>{
+    const options = {
+        method: 'GET',
+        url : 'https://api.spotify.com/v1/playlists/1DStkaGFIbU7j606UQA2NK',
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`,
+        }
+    }
+    try {
+        const res = await axios.request(options)
+        response.json(res.data.tracks);
+    } catch (error) {
+        response.status(400).json(error);
+    }
+
+})
+
+app.get('api/getPlaylist', async(request, response)=>{
+    const {id} = request.query;
+    const options = {
+        method: 'GET',
+        url : `https://api.spotify.com/v1/playlists/${id}`,
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`,
+        }
+    }
+    try {
+        const res = await axios.request(options)
+        response.json(res.data.tracks);
+    } catch (error) {
+        response.status(400).json(error);
+    }
 })
 
 app.get('/api/recommendation', async(request, response)=>{

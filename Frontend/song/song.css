@@ -10,6 +10,51 @@
     --songImg-size: 200px;
 }
 
+#loader {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    width: 100dvw;
+    background-color: var(--background-color);
+    z-index: 10000;
+}
+
+#loader.closed{
+    display: none;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  animation: dotBounce 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
 section{
     background-color: var(--background-color);
     color: var(--text-color);
@@ -41,11 +86,11 @@ section.isPlaying{
     width: var(--songImg-size);
     height: var(--songImg-size);
     margin-block: var(--major-spacing);
-    box-shadow: 0 0 10px 0 rgba(92, 92, 92, 0.5);
     overflow: hidden;
 }
 
 #song-img img{
+    box-shadow: 0 0 10px 0 rgba(92, 92, 92, 0.5);
     width: 100%;
     height: auto;
 }
@@ -193,13 +238,20 @@ section.isPlaying{
     height: 24px;
 }
 
+.song-array-container{
+    background-color: #3a3a3a;
+    padding:20px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
 #song-array{
     width: 100%;
     overflow-x: scroll;
     display: grid;
     grid-template-columns: 80% 80% 80%;
     gap: 10px;
-    padding: 20px 10px;
+    padding-bottom: 10px;
 }
 
 #song-array::-webkit-scrollbar {
@@ -247,6 +299,11 @@ section.isPlaying{
     height: fit-content;
     border-radius: 5px;
     gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.song:hover{
+    background-color: #555;
 }
 
 .song-image{
@@ -492,6 +549,11 @@ section.isPlaying{
         gap: 50px;
     }
 
+    
+    #minor-details-deets{
+        align-items: flex-start;
+    }
+
     #song-array{
         grid-template-columns: 60% 60% 60%;  
     }
@@ -602,7 +664,7 @@ section.isPlaying{
         cursor: default;
     }  
     
-}
+}   
 
 
 @media screen and (min-width: 1024px){
@@ -612,12 +674,12 @@ section.isPlaying{
     }
 
     #minor-details{
-        width: 30%;
+        width: 45%;
         gap: 20px;
     }
 
     #major-details{
-        width: 60%;
+        width: 50%;
     }
 
     #song-img{

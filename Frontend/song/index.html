@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="song.css">
 </head>
 <body>
+    <div id="loader" class='closed'>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
     <header>
         <nav id="navigation">
             <div id="left">
@@ -90,19 +95,19 @@
                                 </div>
                                 <div class="menu-item-content mini">
                                     <ul>
-                                        <li><a href="genres/index.html?genre=Jazz">Jazz</a></li>
-                                        <li><a href="genres/index.html?genre=Pop">Pop</a></li>
-                                        <li><a href="genres/index.html?genre=Classical">Classical</a></li>
-                                        <li><a href="genres/index.html?genre=Rap">Rap</a></li>
-                                        <li><a href="genres/index.html?genre=Rock">Rock</a></li>
+                                        <li><a href="../genres/index.html?genre=Jazz">Jazz</a></li>
+                                        <li><a href="../genres/index.html?genre=Pop">Pop</a></li>
+                                        <li><a href="../genres/index.html?genre=Classical">Classical</a></li>
+                                        <li><a href="../genres/index.html?genre=Rap">Rap</a></li>
+                                        <li><a href="../genres/index.html?genre=Rock">Rock</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="menu-item mini">
-                                <a href="#">Albums</a>
+                                <a href="../albumlist/index.html">Albums</a>
                             </li>
                             <li class="menu-item mini">
-                                <a href="#">Artists</a>
+                                <a href="../artistlist/index.html">Artists</a>
                             </li>
                         </ul>
 
@@ -164,8 +169,11 @@
         <div id="other-details">
             <div id="related-songs">
                 <h2>Top Songs By <span id="artist-name"></span></h2>
-                <div class="song-array" id="song-array">
-                    
+                <div class="song-array-container">
+                    <div class="song-array" id="song-array">
+                        
+                    </div>
+
                 </div>
             </div>
         </div>

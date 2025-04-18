@@ -96,8 +96,9 @@ function getQueryParam(param) {
             })
             container.appendChild(trackBody);
         }
+        document.getElementById('loader').classList.add('closed')
     }else{
-        const response = await fetch(`http://localhost:5000/api/recommendation?genreId=${genre.id}`)
+        const response = await fetch(`https://musicworld-fo5v.onrender.com/api/recommendation?genreId=${genre.id}`)
         const data = await response.json();
 
         console.log(data)
@@ -121,6 +122,7 @@ function getQueryParam(param) {
             })
             container.appendChild(trackBody);
         }
+        document.getElementById('loader').classList.add('closed')
 
     }
 }
@@ -139,6 +141,7 @@ function getSong(id){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('loader').classList.remove('closed')
     populateGenres();
     fetchRecommendations();
 });

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MusicWorld</title>
-    <link rel="stylesheet" href="genres.css">
     <link rel="stylesheet" href="../header.css">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="playlists.css">
 </head>
 <body>
     <div id="loader" class='closed'>
@@ -95,22 +95,21 @@
                                 </div>
                                 <div class="menu-item-content mini">
                                     <ul>
-                                        <li><a href="index.html?genre=Jazz">Jazz</a></li>
-                                        <li><a href="index.html?genre=Pop">Pop</a></li>
-                                        <li><a href="index.html?genre=Classical">Classical</a></li>
-                                        <li><a href="index.html?genre=Rap">Rap</a></li>
-                                        <li><a href="index.html?genre=Rock">Rock</a></li>
+                                        <li><a href="genres/index.html?genre=Jazz">Jazz</a></li>
+                                        <li><a href="genres/index.html?genre=Pop">Pop</a></li>
+                                        <li><a href="genres/index.html?genre=Classical">Classical</a></li>
+                                        <li><a href="genres/index.html?genre=Rap">Rap</a></li>
+                                        <li><a href="genres/index.html?genre=Rock">Rock</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="menu-item mini">
-                                <a href="../albumlist/index.html">Albums</a>
+                                <a href="albumlist/index.html">Albums</a>
                             </li>
                             <li class="menu-item mini">
-                                <a href="../artistlist/index.html">Artists</a>
+                                <a href="artistlist/index.html">Artists</a>
                             </li>
                         </ul>
-
                     </div>
                 </li>
                 <li class="menu-item">
@@ -160,17 +159,13 @@
         </div>
     </header>
     <section>
-        <div id="top-part">
-            <h1>Genres</h1>
-            <h2 id="selected-genre"></h2>
-            <select name="all-genres" id="all-genres"></select>
-        </div>
-        <div id="main-part-container">
-            <div id="main-part">
+        <h2>Playlists</h2>
+        <div id="grid-container-container">
+            <div id="grid-container">
             </div>
         </div>
     </section>
 </body>
-<script src="genres.js"></script>
 <script src="../main.js"></script>
+<script src="playlists.js"></script>
 </html>

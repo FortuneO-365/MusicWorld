@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="artistlist.css">
 </head>
 <body>
+    <div id="loader" class='closed'>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
     <header>
         <nav id="navigation">
             <div id="left">
@@ -90,19 +95,19 @@
                                 </div>
                                 <div class="menu-item-content mini">
                                     <ul>
-                                        <li><a href="genres/index.html?genre=Jazz">Jazz</a></li>
-                                        <li><a href="genres/index.html?genre=Pop">Pop</a></li>
-                                        <li><a href="genres/index.html?genre=Classical">Classical</a></li>
-                                        <li><a href="genres/index.html?genre=Rap">Rap</a></li>
-                                        <li><a href="genres/index.html?genre=Rock">Rock</a></li>
+                                        <li><a href="../genres/index.html?genre=Jazz">Jazz</a></li>
+                                        <li><a href="../genres/index.html?genre=Pop">Pop</a></li>
+                                        <li><a href="../genres/index.html?genre=Classical">Classical</a></li>
+                                        <li><a href="../genres/index.html?genre=Rap">Rap</a></li>
+                                        <li><a href="../genres/index.html?genre=Rock">Rock</a></li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="menu-item mini">
-                                <a href="albumlist/index.html">Albums</a>
+                                <a href="../albumlist/index.html">Albums</a>
                             </li>
                             <li class="menu-item mini">
-                                <a href="#">Artists</a>
+                                <a href="index.html">Artists</a>
                             </li>
                         </ul>
                     </div>
@@ -141,8 +146,8 @@
             </ul>
             <div class="search">
                 <div>
-                    <input type="text" placeholder="Search songs, albums or artists" id="search-input">
-                    <button onclick="search()">
+                    <input type="text" placeholder="Search songs, albums or artists" id="search-input2">
+                    <button onclick="search2()">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -155,7 +160,9 @@
     </header>
     <section>
         <h2>Artists</h2>
-        <div id="grid-container">
+        <div id="grid-container-container">
+            <div id="grid-container">
+            </div>
         </div>
     </section>
 </body>

@@ -5,6 +5,7 @@ async function fetchAlbums(){
     if(cached){
         const data = JSON.parse(cached)
         const albums = data.albums;
+        console.log(data)
         albums.forEach(album => {
             console.log(album)
             const albumContainer = document.createElement('div');
@@ -22,6 +23,7 @@ async function fetchAlbums(){
             `;
             container.append(albumContainer);
         });
+        document.getElementById('loader').classList.add('closed')
     }else{
         const response = await fetch('https://musicworld-fo5v.onrender.com/api/albums');
         const data = await response.json();
@@ -40,7 +42,7 @@ async function fetchAlbums(){
             `;
             container.append(albumContainer);
         });
-
+        document.getElementById('loader').classList.add('closed')
     }
 }
 
@@ -49,5 +51,6 @@ function getAlbum(id){
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
+    document.getElementById('loader').classList.remove('closed')
     fetchAlbums();
 })

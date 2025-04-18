@@ -10,6 +10,51 @@
     --songImg-size: 200px;
 }
 
+#loader {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    width: 100dvw;
+    background-color: var(--background-color);
+    z-index: 10000;
+}
+
+#loader.closed{
+    display: none;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  animation: dotBounce 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
 section{
     background-color: var(--background-color);
     padding: var(--major-spacing);
@@ -19,6 +64,13 @@ h2{
     margin-bottom: var(--major-spacing);
 }
 
+#grid-container-container{
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #555;
+    border-radius: 5px;
+}
+
 #grid-container{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -26,6 +78,7 @@ h2{
 }
 
 .album-grid{
+    background-color: #3a3a3a;
     padding: 10px;
     box-shadow: none;
     border-radius: 5px;
@@ -33,7 +86,7 @@ h2{
 }
 
 .album-grid:hover{
-    box-shadow: 0px 0px 5px gainsboro;
+    box-shadow: 0px 0px 5px #3a3a3a;
 }
 
 .album-img{
@@ -48,6 +101,7 @@ h2{
 }
 
 .album-grid h3{
+    padding-top: 15px;
     transition: color 0.3s ease;
 }
 

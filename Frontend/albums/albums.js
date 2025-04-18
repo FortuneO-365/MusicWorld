@@ -34,6 +34,7 @@ async function fetchAlbum(){
         `;
         tableBody.appendChild(row);
     });
+    document.getElementById('loader').classList.add('closed')
 }
 
 function formatTime(ms) {
@@ -47,6 +48,7 @@ function formatTime(ms) {
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('loader').classList.remove('closed')
     fetchAlbum();
 })
 

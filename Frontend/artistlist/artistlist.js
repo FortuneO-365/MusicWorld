@@ -21,6 +21,7 @@ async function fetchArtists(){
             `;
             container.append(artistContainer);
         });
+        document.getElementById('loader').classList.add('closed')
     }else{
         const response = await fetch('https://musicworld-fo5v.onrender.com/api/artists');
         const data = await response.json();
@@ -42,6 +43,7 @@ async function fetchArtists(){
             `;
             container.append(artistContainer);
         });
+        document.getElementById('loader').classList.add('closed')
     }
 }
 
@@ -50,5 +52,6 @@ function getArtist(id){
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
+    document.getElementById('loader').classList.remove('closed')
     fetchArtists();
 })

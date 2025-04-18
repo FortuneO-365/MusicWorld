@@ -38,6 +38,7 @@ async function fetchArtistsTrack(id) {
             </div>
         `
     })
+    document.getElementById('loader').classList.add('closed')
 }
 
 
