@@ -322,7 +322,7 @@ app.get('/api/throwback', async(request, response)=>{
 
 })
 
-app.get('api/getPlaylist', async(request, response)=>{
+app.get('/api/getPlaylist', async(request, response)=>{
     const {id} = request.query;
     const options = {
         method: 'GET',
