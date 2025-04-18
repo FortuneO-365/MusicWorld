@@ -37,7 +37,6 @@ async function fetchArtistsTrack(id) {
                 <div class="song-duration">${formatTime(track.duration_ms)}</div>
             </div>
         `
-
     })
 }
 

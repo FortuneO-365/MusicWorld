@@ -5,8 +5,6 @@ import mongoose from 'mongoose';
 import axios from 'axios';
 import dotenv from 'dotenv'
 import * as cheerio from 'cheerio';
-import querystring from 'querystring';
-import { url } from 'inspector';
 
 
 dotenv.config();
@@ -149,68 +147,84 @@ app.get('/api/song', async(request, response)=>{
         const artistName = track.artists[0]?.name || '';
 
         const searchQuery = `${songName} ${artistName}`;
-        const geniusOptions = {
-            method: 'GET',
-            url: `https://api.genius.com/search?q=${searchQuery}`,
-            headers: {
-                Authorization: `Bearer ${GeniusLyrics_AccessToken}`
-            }
-        } 
+
         try{
-            const geniusRes = await axios.request(geniusOptions);
-            const hit = geniusRes.data.response.hits[0];
-            const songPath = hit.result.path;
-            const geniusUrl = `https://genius.com${songPath}?text_format=html`;
 
-            const geniusSongOptions = {
-                method: 'GET',
-                url: `https://api.genius.com/songs/${hit.result.id}?text_format=html`,
-                headers: {
-                    Authorization: `Bearer ${GeniusLyrics_AccessToken}`,
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
-                }
-            };
+            const deezerSearchOptions = {
+                method : 'GET',
+                url : `https://api.deezer.com/search?q=${searchQuery}`
+            }
             
-            const geniusSongNewRes = await axios.request(geniusSongOptions);
-            const songDescription = geniusSongNewRes.data.response.song.description.html;
-            const descriptionHtml = songDescription || '<p>No description available</p>';     
+            const DeezerRes = await axios.request(deezerSearchOptions);
+            const songUrl = DeezerRes.data.data[0].preview;
 
-            const htmlRes = await axios.get(geniusUrl);
-            const $ = cheerio.load(htmlRes.data);
+            try{
+                const geniusOptions = {
+                    method: 'GET',
+                    url: `https://api.genius.com/search?q=${searchQuery}`,
+                    headers: {
+                        Authorization: `Bearer ${GeniusLyrics_AccessToken}`
+                    }
+                } 
 
-            const lyricsHtml = $('[data-lyrics-container]').html() || '<p>Lyrics not found</p>';
+                const geniusRes = await axios.request(geniusOptions);
+                const hit = geniusRes.data.response.hits[0];
 
-            try {
-                const deezerSearchOptions = {
-                    method : 'GET',
-                    url : `https://api.deezer.com/search?q=${searchQuery}`
+                const geniusSongOptions = {
+                    method: 'GET',
+                    url: `https://api.genius.com/songs/${hit.result.id}?text_format=html`,
+                    headers: {
+                        Authorization: `Bearer ${GeniusLyrics_AccessToken}`
+                    }
+                };
+
+                const geniusSongNewRes = await axios.request(geniusSongOptions);
+                const songDescription = geniusSongNewRes.data.response.song.description.html;
+                const descriptionHtml = songDescription || '<p>No description available</p>';  
+
+                try{
+                    const lyricsOptions ={
+                        method: 'GET',
+                        url: `https://api.lyrics.ovh/v1/${artistName}/${songName}`
+                    }
+
+                    const finalRes = await axios.request(lyricsOptions)
+                    const lyrics = finalRes.data.lyrics;
+
+                    response.json({
+                        ...track,
+                        'songUrl': songUrl,
+                        description: descriptionHtml,
+                        'lyrics': lyrics
+                    })
+                }catch(lyricsError){
+                    console.log(lyricsError);
+                    response.json({
+                        'Genius':{
+                            ...track,
+                            'songUrl': songUrl,
+                            description: descriptionHtml,
+                        }
+                    })
                 }
-                const finalRes = await axios.request(deezerSearchOptions);
-                const songUrl = finalRes.data.data[0].preview;
+
+            }catch(geniusError){
+                console.log(geniusError)
                 response.json({
-                    ...track,
-                    lyrics: lyricsHtml,
-                    description: descriptionHtml,
-                    'songUrl': songUrl
+                    'Deezer':{
+                        ...track,
+                        'songUrl': songUrl,
+                    }
                 })
-
-
-            } catch (error) {
-                console.log(error);
-                response.json({
-                    source: "GENIUS",
-                    ...track,
-                    lyrics: lyricsHtml,
-                    description: descriptionHtml,
-                });
             }
 
-        }catch(geniusError){
-            console.log(geniusError)
+        }catch(deezerError){
+            console.log(deezerError)
             response.json({
                 'SPOTIFY': track,
             })
         }
+
     }catch(error){
         console.log(error)
         response.status(400).json(error.message)

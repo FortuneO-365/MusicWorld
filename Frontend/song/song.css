@@ -195,7 +195,7 @@ section.isPlaying{
     height: 24px;
 }
 
-#songs-list{
+#song-array{
     width: 100%;
     overflow-x: scroll;
     display: grid;
@@ -204,28 +204,28 @@ section.isPlaying{
     padding: 20px 10px;
 }
 
-#songs-list::-webkit-scrollbar {
+#song-array::-webkit-scrollbar {
     height: 8px;
 }
 
-#songs-list::-webkit-scrollbar-track {
+#song-array::-webkit-scrollbar-track {
     background: #333;
     border-radius: 10px;
 }
 
-#songs-list::-webkit-scrollbar-thumb {
+#song-array::-webkit-scrollbar-thumb {
     background-color: gainsboro;
     border-radius: 10px;
 }
 
 /* Custom Scrollbar Button */
-#songs-list::-webkit-scrollbar-button {
+#song-array::-webkit-scrollbar-button {
     display: block;
     visibility: hidden;
 }
 
 /* Up Arrow */
- #songs-list::-webkit-scrollbar-button:single-button:decrement {
+ #song-array::-webkit-scrollbar-button:single-button:decrement {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(6.123233995736766e-17,1,1,-6.123233995736766e-17,0,0)"><path fill="white" d="M12 8l-6 6h12z"></path></svg>');
     background-position: center;
     background-size: 100%;
@@ -233,7 +233,7 @@ section.isPlaying{
 } 
 
 /* Down Arrow */
-#songs-list::-webkit-scrollbar-button:single-button:increment {
+#song-array::-webkit-scrollbar-button:single-button:increment {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)"><path fill="white" d="M12 8l-6 6h12z"></path></svg>');
     background-position: center;
     background-size: 100%;
@@ -494,7 +494,7 @@ section.isPlaying{
         gap: 50px;
     }
 
-    #songs-list{
+    #song-array{
         grid-template-columns: 60% 60% 60%;  
     }
 
@@ -627,7 +627,7 @@ section.isPlaying{
         height: 150px;
     }
 
-    #songs-list{
+    #song-array{
         grid-template-columns: 45% 45% 45%;
     }
 }
@@ -639,7 +639,7 @@ section.isPlaying{
         height: 200px;
     }
 
-    #songs-list{
+    #song-array{
         grid-template-columns: 40% 40% 40%;
     }
 }
