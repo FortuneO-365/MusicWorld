@@ -248,7 +248,7 @@ app.get('/api/trending', async(request, response)=>{
     }
     try {
         const res = await axios.request(options)
-        response.json(res.data.tracks);
+        response.json(res.data);
     } catch (error) {
         response.status(400).json(error);
     }
@@ -265,7 +265,7 @@ app.get('/api/liked', async(request, response)=>{
     }
     try {
         const res = await axios.request(options)
-        response.json(res.data.tracks);
+        response.json(res.data);
     } catch (error) {
         response.status(400).json(error);
     }
@@ -282,7 +282,7 @@ app.get('/api/fun', async(request, response)=>{
     }
     try {
         const res = await axios.request(options)
-        response.json(res.data.tracks);
+        response.json(res.data);
     } catch (error) {
         response.status(400).json(error);
     }
@@ -299,7 +299,7 @@ app.get('/api/covers', async(request, response)=>{
     }
     try {
         const res = await axios.request(options)
-        response.json(res.data.tracks);
+        response.json(res.data);
     } catch (error) {
         response.status(400).json(error);
     }
@@ -315,7 +315,7 @@ app.get('/api/throwback', async(request, response)=>{
     }
     try {
         const res = await axios.request(options)
-        response.json(res.data.tracks);
+        response.json(res.data);
     } catch (error) {
         response.status(400).json(error);
     }
@@ -333,7 +333,7 @@ app.get('api/getPlaylist', async(request, response)=>{
     }
     try {
         const res = await axios.request(options)
-        response.json(res.data.tracks);
+        response.json(res.data);
     } catch (error) {
         response.status(400).json(error);
     }
