@@ -313,11 +313,11 @@ async function fetchSongFromSearch(id){
     })
 
     const items = Array.from(document.getElementsByClassName('items'));
-    items.forEach(item => {
-        if(!item.className.includes('active')){
-            item.style.display = 'none'
-        }
-    })
+    // items.forEach(item => {
+    //     if(!item.className.includes('active')){
+    //         item.style.display = 'none'
+    //     }
+    // })
 
 }
 

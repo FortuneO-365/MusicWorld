@@ -158,16 +158,14 @@ section.isPlaying{
     border-radius: 10px 10px 0 0;
 }
 
-.items.active{
-    visibility: visible;
-    display: block;
-    margin-block: var(--major-spacing);
-}
-
 .items{
     transition: all 0.3s ease;
-    visibility: hidden;
     display: none;
+}
+
+.items.active{
+    display: block;
+    margin-block: var(--major-spacing);
 }
 
 #download-button a{
