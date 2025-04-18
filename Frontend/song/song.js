@@ -233,6 +233,7 @@ async function fetchSongFromSearch(id){
     }else{
         console.log('true 3')
         const songInfo = data;
+        console.log(songInfo)
         const songResponse = await fetch(songInfo.songUrl);
         const songBlob = await songResponse.blob();
         const songUrl = URL.createObjectURL(songBlob);
