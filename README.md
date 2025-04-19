@@ -11,8 +11,6 @@ Welcome to **Music World**, a platform designed for music lovers to explore, dis
 
 ## 🚀 Get Started  
 
-1. 🔗 **Live Site**: [https://fortuneo-365.github.io/MusicWorld/](https://fortuneo-365.github.io/MusicWorld/)
-2. Clone the repository:  
-   ```sh
-   git clone https://github.com/FortuneO-365/MusicWorld.git
+1. 🔗 **Live Site**: (https://music-world-virid.vercel.app)
+
   
