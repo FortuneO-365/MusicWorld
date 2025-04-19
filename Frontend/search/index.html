@@ -80,37 +80,20 @@
                     <div class="menu-item-content">
                         <ul class="menu mini">
                             <li class="menu-item mini">
-                                <div class="menu-item-header mini foldable">
-                                    <h3 style="color: gainsboro;">Genre</h3>
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                        </svg>                              
-                                    </span>
-                                </div>
-                                <div class="menu-item-content mini">
-                                    <ul>
-                                        <li><a href="genres/index.html?genre=Jazz">Jazz</a></li>
-                                        <li><a href="genres/index.html?genre=Pop">Pop</a></li>
-                                        <li><a href="genres/index.html?genre=Classical">Classical</a></li>
-                                        <li><a href="genres/index.html?genre=Rap">Rap</a></li>
-                                        <li><a href="genres/index.html?genre=Rock">Rock</a></li>
-                                    </ul>
-                                </div>
+                                <a href="../songlist/index.html">Tracks</a>
                             </li>
                             <li class="menu-item mini">
                                 <a href="../albumlist/index.html">Albums</a>
                             </li>
                             <li class="menu-item mini">
-                                <a href="#">Artists</a>
+                                <a href="../artistlist/index.html">Artists</a>
                             </li>
                         </ul>
-
                     </div>
                 </li>
                 <li class="menu-item">
                     <div class="menu-item-header foldable">
-                        <h3>Releases</h3>
+                        <h3 style="color: gainsboro;">Genre</h3>
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -118,23 +101,18 @@
                         </span>
                     </div>
                     <div class="menu-item-content">
-                        <ul class="menu mini">
-                            <li class="menu-item mini">
-                                <a href="#">Latest Releases</a>
-                            </li>
-                            <li class="menu-item mini">
-                                <a href="#">Best of the year</a>
-                            </li>
-                            <li class="menu-item mini">
-                                <a href="#">Oldies but Goldies</a>
-                            </li>
+                        <ul>
+                            <li><a href="../genres/index.html?genre=Jazz">Jazz</a></li>
+                            <li><a href="../genres/index.html?genre=Pop">Pop</a></li>
+                            <li><a href="../genres/index.html?genre=Classical">Classical</a></li>
+                            <li><a href="../genres/index.html?genre=Rap">Rap</a></li>
+                            <li><a href="../genres/index.html?genre=Rock">Rock</a></li>
                         </ul>
-
                     </div>
                 </li>
                 <li class="menu-item">
                     <div class="menu-header">
-                        <a href="#">
+                        <a href="../playlists/index.html">
                             <h3>Playlists</h3>
                         </a>
                     </div>
@@ -142,8 +120,8 @@
             </ul>
             <div class="search">
                 <div>
-                    <input type="text" placeholder="Search songs, albums or artists" id="search-input">
-                    <button onclick="search()">
+                    <input type="text" placeholder="Search songs, albums or artists" id="search-input2">
+                    <button onclick="search2()">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -197,6 +175,7 @@
             </div>
         </div>
     </footer>
+
 </body>
 <script src="./search.js"></script>
 <script src="../main.js"></script>

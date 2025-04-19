@@ -3,75 +3,14 @@
   1. DROPDOWN MENU HANDLING
 ==========================*/
 document.addEventListener("DOMContentLoaded", function () {
-    setupDropdownMenus();
     setupGifHoverEffects();
     setupGifScrollEffect();
     setupElementScrollReveal();
     setupHoverEffects(".concept-item");
     setupHoverEffects(".premium-item");
-    setupMobileMenu();
+    checkUser();
 });
 
-function setupDropdownMenus() {
-    let dropdowns = document.querySelectorAll(".dropdown");
-
-    dropdowns.forEach(dropdown => {
-        dropdown.addEventListener("mouseover", function () {
-            if (window.innerWidth > 768) {
-                this.querySelector(".mega-menu").style.display = "grid";
-            }
-        });
-
-        dropdown.addEventListener("mouseleave", function () {
-            if (window.innerWidth > 768) {
-                this.querySelector(".mega-menu").style.display = "none";
-            }
-        });
-
-        dropdown.addEventListener("click", function (e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-
-                dropdowns.forEach(item => {
-                    if (item !== this) {
-                        item.classList.remove("active");
-                        item.querySelector(".mega-menu").style.display = "none";
-                    }
-                });
-
-                this.classList.toggle("active");
-                let megaMenu = this.querySelector(".mega-menu");
-                megaMenu.style.display = megaMenu.style.display === "grid" ? "none" : "grid";
-            }
-        });
-    });
-
-    document.addEventListener("click", function (event) {
-        if (!event.target.closest(".dropdown")) {
-            dropdowns.forEach(dropdown => {
-                dropdown.classList.remove("active");
-                let megaMenu = dropdown.querySelector(".mega-menu");
-                if (megaMenu) {
-                    megaMenu.style.display = "none";
-                }
-            });
-        }
-    });
-}
-
-/*=========================
-  2. MOBILE MENU TOGGLE
-==========================*/
-function toggleMenu() {
-    // const drop = document.querySelector(".dropdown");
-    const navLinks = document.querySelector(".nav-links");
-    const searchBar = document.querySelector(".search-bar");
-    const loginBtn = document.querySelector(".login-btn");
-    navLinks.classList.toggle("active");
-    searchBar.classList.toggle("active");
-    loginBtn.classList.toggle("active");
-    // drop.classList.toggle("active");
-}
 
 /*=========================
   3. GIF HOVER EFFECTS
@@ -151,6 +90,26 @@ function setupHoverEffects(selector) {
     });
 }
 
+/*=========================
+  7. CHECK USER
+==========================*/
+
+function checkUser() {
+    const user = localStorage.getItem("user");
+    if (user) {
+        document.getElementById('registerNow').style.display = 'none';
+    } else {
+        document.getElementById('registerNow').style.display = 'none';
+    }
+}
+
+/*=========================
+  7. START LISTENING
+==========================*/
+
+function startListening() {
+    window.location.href = "songlist/index.html";
+}
 
 window.addEventListener("load", function() {
     setTimeout(() => {

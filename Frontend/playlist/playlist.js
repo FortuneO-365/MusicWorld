@@ -9,6 +9,11 @@ async function fetchPlaylists(){
     const data = await response.json();
 
     console.log(data);
+    const img  = document.getElementById('playlist-img');
+    img.src = data.images[0].url;
+    const name = document.getElementById('playlist-name');
+    name.innerHTML = data.name;
+
     const playlistTracks = data.tracks.items;
     const container = document.getElementById('container');
     const cached = localStorage.getItem(`playlist${playlistId}`)
@@ -17,7 +22,12 @@ async function fetchPlaylists(){
         tracks.forEach(track =>{
             container.innerHTML += `
                 <tr onclick = "getSong('${track.track.id}')">
-                    <td>${track.track.name}</td>
+                    <td>
+                        <div class="track-img">
+                            <img src="${track.track.album.images[0].url}" alt="">
+                        </div>
+                        <p>${track.track.name}</p>
+                    </td>
                     <td>${track.track.artists[0].name}</td>
                     <td>${formatTime(track.track.duration_ms)}</td>
                 </tr>
