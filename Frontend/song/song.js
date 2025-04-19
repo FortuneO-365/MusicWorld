@@ -5,7 +5,6 @@ const songTitle = document.querySelectorAll('.song-title');
 const lyrics = document.getElementById('lyrics');
 const description = document.getElementById('description');
 const downloadBtn = document.getElementById('download');
-const audio = document.querySelector('audio');
 
 
 function showLyrics(){
@@ -90,6 +89,22 @@ async function fetchSongFromSearch(id) {
     document.getElementById('artist-name').innerText = songInfo.artists[0].name;
     fetchArtistsTrack(songInfo.artists[0].id);
     document.getElementById('loader').classList.add('closed')
+
+    const songImgs = Array.from(document.querySelectorAll('.audio-player-song-image'));
+    songImgs.forEach((img, index) => {
+        img.src = songInfo.album.images[0].url;
+    });
+
+    const songNames = Array.from(document.querySelectorAll('.audio-player-song-title'));
+    songNames.forEach((name, index) => {
+        name.innerText = songInfo.name;
+    });
+
+    const artistNames = Array.from(document.querySelectorAll('.audio-player-artist-name'));
+    artistNames.forEach((name, index) => {
+        name.innerText = songInfo.artists[0].name;
+    });
+
 }
 
 async function fetchSongFromRecommendation(id) {
@@ -156,7 +171,7 @@ function renderMinorDetails(songInfo) {
                 <span class="album-name">${songInfo.album.name}</span>
             </div>
             <div id="action-buttons">
-                <div onclick="togglePlay()">
+                <div onclick="togglePlay()" id='player'>
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
@@ -214,14 +229,26 @@ function formatTime(ms) {
 
 function togglePlay(){
     const audioPlayer = document.querySelector('.audio-player');
+    const playBtn = document.querySelector('#player');
+    const playBtn2 = document.querySelector('#pausePlay-button-small');
+    const playBtn3 = document.querySelector('#pausePlay-button-large');
     const section = document.querySelector('section');
+    const audio = document.querySelector('audio');
     if(audio.paused){
         audioPlayer.classList.add('shown')
         section.classList.add('isPlaying')
+        playBtn.classList.add('playing')
+        playBtn2.classList.remove('pause')
+        playBtn3.classList.remove('pause')
         audio.play();
+        updateAudio();
     }else{
+        playBtn.classList.remove('playing')
+        playBtn2.classList.add('pause')
+        playBtn3.classList.add('pause')
         audio.pause();
     }
+
 }
 
 function toggleTab(){
@@ -239,42 +266,29 @@ function closePlayer(){
     section.classList.remove('isPlaying')
 }
 
-function seekSong(){
-    const seek = audio.duration * (seek.value / 100);
-    audio.currentTime = seek;
-}
-
-function setVolume(){
-    audio.volume = volume.value / 100;
-}
-
-function muteSong(){    
-    audio.muted = !audio.muted;
-}
-
-function nextSong(){
-    // Fetch next song
-}
-
-function prevSong(){    
-    // Fetch previous song
-}
-
-function repeatSong(){        
-    audio.loop = !audio.loop;
-}
-
-function shuffleSong(){
-    // Shuffle songs
-}
-
 function getSongProgress(){
+    const playBtn = document.querySelector('#player');
+    const playBtn2 = document.querySelector('#pausePlay-button-small');
+    const playBtn3 = document.querySelector('#pausePlay-button-large');
     const elaspedTime = audio.currentTime;
     const length = audio.duration;
     const value = (elaspedTime / length) * 100 + '%';
     // console.log(value);
-    console.log(elaspedTime);
-    console.log(length);
+    const fulltime = document.querySelectorAll('.audio-player-duration');
+    fulltime.forEach((time, index) => {
+        time.innerText = formatTime(audio.duration * 1000);
+    })
+    const currentTime = document.querySelectorAll('.audio-player-current-time');
+    currentTime.forEach((time, index) => {
+        time.innerText = formatTime(elaspedTime * 1000);
+    })
+    
+    if(audio.ended){
+        audio.currentTime = 0;
+        playBtn.classList.remove('playing')
+        playBtn2.classList.add('pause')
+        playBtn3.classList.add('pause')
+    }
     return value;
 }
 
@@ -299,9 +313,6 @@ function updateAudio(){
 document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('loader').classList.remove('closed')
     fetchSong(); 
-    setTimeout(()=>{
-        updateAudio();
-    },2000)
 }) 
  
 

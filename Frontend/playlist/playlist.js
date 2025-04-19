@@ -13,10 +13,10 @@ async function fetchPlaylists(){
     const container = document.getElementById('container');
     const cached = localStorage.getItem(`playlist${playlistId}`)
     if(cached){
-        const tracks = JSON.parse(cached)
+        const tracks = JSON.parse(cached);
         tracks.forEach(track =>{
             container.innerHTML += `
-                <tr onclick = "getSong('${playlistId}')">
+                <tr onclick = "getSong('${track.track.id}')">
                     <td>${track.track.name}</td>
                     <td>${track.track.artists[0].name}</td>
                     <td>${formatTime(track.track.duration_ms)}</td>
@@ -24,10 +24,10 @@ async function fetchPlaylists(){
             ` ;
         })
     }else{
-        localStorage.setItem(`playlist${playlistId}`);
+        localStorage.setItem(`playlist${playlistId}`, JSON.stringify(playlistTracks));
         playlistTracks.forEach(track =>{
             container.innerHTML += `
-                <tr onclick = "getSong('${playlistId}')">
+                <tr onclick = "getSong('${track.track.id}')">
                     <td>${track.track.name}</td>
                     <td>${track.track.artists[0].name}</td>
                     <td>${formatTime(track.track.duration_ms)}</td>

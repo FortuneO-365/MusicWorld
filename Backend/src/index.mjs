@@ -27,7 +27,8 @@ const {
     SPOTIFY_CLIENT_SECRET,
     GeniusLyrics_AccessToken,
     albumIds,
-    artistIds
+    artistIds,
+    songIds
 } = process.env;
 
 
@@ -235,6 +236,23 @@ app.get('/api/song', async(request, response)=>{
     }catch(error){
         console.log(error)
         response.status(400).json(error.message)
+    }
+})
+
+app.get('/api/songs', async(request, response)=>{
+    const options = {
+        method: 'GET',
+        url: `https://api.spotify.com/v1/tracks?ids=${songIds}`,
+        headers: {
+            'Authorization' : `Bearer ${accessToken}`
+        }
+    }
+    try{
+        const res = await axios.request(options);
+        response.json(res.data)
+
+    }catch(error){
+        response.status(400).json(error)
     }
 })
 
