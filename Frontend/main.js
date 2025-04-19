@@ -11,7 +11,7 @@ function search() {
 
     if (searchQuery === '') return;
 
-    const searchPath = `Frontend/search/index.html?query=${encodeURIComponent(searchQuery)}`;
+    const searchPath = `search/index.html?query=${encodeURIComponent(searchQuery)}`;
     const newLocation = `${window.location.origin}/${searchPath}`;
 
     if (window.location.href !== newLocation) {
@@ -27,7 +27,7 @@ function search2() {
 
     if (searchQuery === '') return;
 
-    const searchPath = `Frontend/search/index.html?query=${encodeURIComponent(searchQuery)}`;
+    const searchPath = `search/index.html?query=${encodeURIComponent(searchQuery)}`;
     const newLocation = `${window.location.origin}/${searchPath}`;
 
     if (window.location.href !== newLocation) {
@@ -38,7 +38,7 @@ function search2() {
 }
 
 function signin(){
-    const loginPath = `Frontend/signin/login.html`;
+    const loginPath = `signin/login.html`;
     const newLocation = `${window.location.origin}/${loginPath}`;
 
     if (window.location.href !== newLocation) {
