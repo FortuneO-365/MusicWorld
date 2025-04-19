@@ -47,42 +47,7 @@ async function fetchSong(){
         fetchSongFromSearch(songId);
     }else{
         songId = getQueryParam('recommendedId');
-        if (songId !== '' && songId !== null ){
-            const response = await fetch(`https://musicworld-fo5v.onrender.com/api/recommendation/track?recommendedId=${songId}`);
-        const data = await response.json();
-        // if(!data.(Spotify Fallback))
-        const songInfo = data;
-        console.log(data)
-    
-        img.src = songInfo.album.images[0].url;
-        document.getElementById('song-duration').innerText = formatTime(songInfo.duration_ms);
-        document.getElementById('release-date').innerText = songInfo.album.release_date;
-        artistName.forEach(artist => {
-            artist.innerText = songInfo.artists[0].name;
-        })
-        albumName.forEach(album => {
-            album.innerText = songInfo.album.name;
-        })
-        songTitle.forEach(title => {
-            title.innerText = songInfo.name;
-        })
-        lyrics.innerHTML = songInfo.lyrics || "Lyrics not found";
-        description.innerHTML = songInfo.description || "Description not found";
-        const e = Array.from(document.getElementsByClassName('LyricsHeader__Container-sc-3eaf69e8-1'));
-        e.forEach(element => {
-            element.style.display = 'none';
-        })
-        audio.src = songInfo.songUrl;
-        const songResponse = await fetch(songInfo.songUrl);
-        const songBlob = await songResponse.blob();
-        const songUrl = URL.createObjectURL(songBlob);
-    
-        downloadBtn.href = songUrl;
-        downloadBtn.download = `${songInfo.name} preview`;
-        fetchArtistsTrack(songInfo.id)
-        }else{
-            window.location.href='../404.html'
-        }
+        fetchSongFromRecommendation(songId);
     }
 }
 
@@ -127,6 +92,41 @@ async function fetchSongFromSearch(id) {
     document.getElementById('loader').classList.add('closed')
 }
 
+async function fetchSongFromRecommendation(id) {
+    const response = await fetch(`https://musicworld-fo5v.onrender.com/api/recommendation/track?recommendedId=${id}`);
+    const data = await response.json();
+    const user = localStorage.getItem('user');
+    const minorDetails = document.getElementById('minor-details');
+    const majorDetails = document.getElementById('major-details');
+
+    let songInfo = data.Spotify || data.Deezer || data.Genius || data;
+    let songUrl = songInfo.songUrl;
+
+    if (!data.Spotify && !data.GENIUS) {
+        const songResponse = await fetch(songUrl);
+        const songBlob = await songResponse.blob();
+        songUrl = URL.createObjectURL(songBlob);
+    }
+    majorDetails.innerHTML = `
+        <div>
+            <audio id="audio" src="${songUrl || ''}"></audio>
+        </div>
+        <div id="song-description">
+            <div id="headers">
+                <h4 id="description-header" class="active" onclick="hideLyrics()">Overview</h4>
+                <h4 id="lyrics-header" onclick="showLyrics()">Lyrics</h4>
+            </div>
+            <div id="description" class="items active">${songInfo.description || 'Song Description is unavailable at the moment.'}</div>
+            <div id="lyrics" class="items">${songInfo.lyrics || 'Song Lyrics is unavailable at the moment.'}</div>
+        </div>
+        ${user ? renderDownloadButton(songUrl, songInfo.name) : ''}
+    `;
+    minorDetails.innerHTML = renderMinorDetails(songInfo);
+    document.getElementById('artist-name').innerText = songInfo.artists[0].name;
+    fetchArtistsTrack(songInfo.artists[0].id);
+    document.getElementById('loader').classList.add('closed')
+}
+
 function renderDownloadButton(songUrl, songName) {
     return `
         <div id="download-button">
@@ -162,6 +162,11 @@ function renderMinorDetails(songInfo) {
                             <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
                         </svg>                          
                     </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+                    </svg>
+                    </span>
                 </div>
                 <div>
                     <span>
@@ -196,8 +201,6 @@ async function fetchArtistsTrack(id) {
         `
     })
 }
-
-
 
 function formatTime(ms) {
     let secs = ms/1000;
