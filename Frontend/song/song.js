@@ -227,6 +227,11 @@ function formatTime(ms) {
     return `${mins}:${seconds}`;
 }
 
+function getSong(id){
+    window.location.href = `index.html?id=${id}`
+
+}
+
 function togglePlay(){
     const audioPlayer = document.querySelector('.audio-player');
     const playBtn = document.querySelector('#player');
